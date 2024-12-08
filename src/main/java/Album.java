@@ -39,4 +39,12 @@ public class Album {
     public ArrayList<Music> getArrMusic() {
         return arrMusic;
     }
+
+    public void addMusic(Music music) {
+        arrMusic.add(music);
+    }
+
+    public void removeMusic(Music music) {
+        arrMusic.remove(music);
+    }
 }

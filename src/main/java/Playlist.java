@@ -8,8 +8,8 @@ public class Playlist {
 
 
 
-    public Playlist(int playListID, String playListName) {
-        this.playListID = playListID;
+    public Playlist(/*int playListID,*/ String playListName) {
+        //this.playListID = playListID;
         this.playListName = playListName;
         this.arrMusic = new ArrayList<>();
     }
@@ -36,5 +36,13 @@ public class Playlist {
 
     public void setArrMusic(ArrayList<Music> arrMusic) {
         this.arrMusic = arrMusic;
+    }
+
+    public void addMusic(Music music) {
+        arrMusic.add(music);
+    }
+
+    public void removeMusic(Music music) {
+        arrMusic.remove(music);
     }
 }
