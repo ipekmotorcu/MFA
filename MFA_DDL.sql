@@ -60,6 +60,11 @@ CREATE TABLE ALBUM (
     FOREIGN KEY (ArtistID) REFERENCES ARTIST(ArtistID)
 );
 
+-- Create table for CATEGORY
+CREATE TABLE CATEGORY (
+    CategoryID INTEGER PRIMARY KEY,
+    CategoryName VARCHAR(255) NOT NULL
+);
 -- Create table for MUSIC
 CREATE TABLE MUSIC (
     MusicID INTEGER PRIMARY KEY,
@@ -71,12 +76,6 @@ CREATE TABLE MUSIC (
     ReleaseDate DATE,
     FOREIGN KEY (AlbumID) REFERENCES ALBUM(AlbumID),
     FOREIGN KEY (CategoryID) REFERENCES CATEGORY(CategoryID)
-);
-
--- Create table for CATEGORY
-CREATE TABLE CATEGORY (
-    CategoryID INTEGER PRIMARY KEY,
-    CategoryName VARCHAR(255) NOT NULL
 );
 
 -- Create table for REACTIONS
