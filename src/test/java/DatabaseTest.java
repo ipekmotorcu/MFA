@@ -35,6 +35,7 @@ public class DatabaseTest {
 
             // Search for music by name
             //listener.searchMusic("Song Two");
+            artist.viewStatistics();
         }
     }
 

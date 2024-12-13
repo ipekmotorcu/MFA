@@ -1,5 +1,6 @@
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -88,9 +89,35 @@ public class Artist extends User{
     }
 
     // Method to view artist's album statistics
-    public void viewStatistics() {
+   /* public void viewStatistics() {
         System.out.println("Statistics for Artist: " + getUsername());
         System.out.println("Number of albums: " + arrAlbum.size());
         System.out.println("Albums: " + arrAlbum);
+    }*/
+    //ben bunu şimdilik yazdım bu geliştirilebilir
+    public void viewStatistics() {
+        String query = "SELECT AlbumName, ReleaseDate FROM ALBUM WHERE ArtistID = ?";
+        int albumCount = 0;
+
+        System.out.println("Statistics for Artist: " + getUsername());
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setInt(1, getUserId()); // Use the Artist's UserID as ArtistID
+            try (ResultSet rs = stmt.executeQuery()) {
+                System.out.println("Albums:");
+                while (rs.next()) {
+                    albumCount++;
+                    String albumName = rs.getString("AlbumName");
+                    String releaseDate = rs.getString("ReleaseDate");
+                    System.out.println("- " + albumName + " (Released on: " + releaseDate + ")");
+                }
+            }
+
+            System.out.println("Number of albums: " + albumCount);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
+
 }

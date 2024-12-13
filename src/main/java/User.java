@@ -1,3 +1,6 @@
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class User {
@@ -36,19 +39,47 @@ public class User {
     }
 
     public void createPlaylist(String playlistName) {
-        // Implementation to create a new playlist
-        Playlist list=new Playlist(playlistName);//Playlist ID database kısmında otomatik oluşturulabiliyor
-        // gerekirse oradan çekeriz burada oluşturmaya gerek yok gibi
-        playlists.add(list);
-        //!!!Database'e kaydetmeliyiz
+        String query = "INSERT INTO PLAYLIST (ListenerID, PlaylistName, CreationDate, IsPublic) VALUES (?, ?, CURDATE(), TRUE)";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setInt(1, getUserId()); // Use the Listener's UserID as ListenerID
+            stmt.setString(2, playlistName);
+            stmt.executeUpdate();
+            System.out.println("Playlist created successfully: " + playlistName);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
+    // Method to add music to a playlist
     public void addMusicToPlaylist(int playlistId, int musicId) {
-        // Implementation to add music to a playlist
+        String query = "INSERT INTO PLAYLIST_MUSIC (PlaylistID, MusicID, DateAdded) VALUES (?, ?, CURDATE())";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setInt(1, playlistId);
+            stmt.setInt(2, musicId);
+            stmt.executeUpdate();
+            System.out.println("Music added to playlist successfully.");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
+    // Method to remove music from a playlist
     public void removeMusicFromPlaylist(int playlistId, int musicId) {
-        // Implementation to remove music from a playlist
+        String query = "DELETE FROM PLAYLIST_MUSIC WHERE PlaylistID = ? AND MusicID = ?";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setInt(1, playlistId);
+            stmt.setInt(2, musicId);
+            int rowsAffected = stmt.executeUpdate();
+            if (rowsAffected > 0) {
+                System.out.println("Music removed from playlist successfully.");
+            } else {
+                System.out.println("Music not found in playlist.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
-
 }

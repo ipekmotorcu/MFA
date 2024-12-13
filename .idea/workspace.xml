@@ -4,13 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7f6ccafc-9584-455e-b7c1-612e6dd6ad77" name="Changes" comment="Initial commit">
-      <change afterPath="$PROJECT_DIR$/src/main/java/DBConnection.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/DatabaseTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Admin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Admin.java" afterDir="false" />
+    <list default="true" id="7f6ccafc-9584-455e-b7c1-612e6dd6ad77" name="Changes" comment="Database'e bağlandı bazı queryler yazıldı">
       <change beforePath="$PROJECT_DIR$/src/main/java/Artist.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Artist.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Listener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Listener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/User.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -94,7 +90,14 @@
       <option name="project" value="LOCAL" />
       <updated>1733555747767</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Database'e bağlandı bazı queryler yazıldı">
+      <created>1734119578821</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1734119578821</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -102,6 +105,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Initial commit" />
-    <option name="LAST_COMMIT_MESSAGE" value="Initial commit" />
+    <MESSAGE value="Database'e bağlandı bazı queryler yazıldı" />
+    <option name="LAST_COMMIT_MESSAGE" value="Database'e bağlandı bazı queryler yazıldı" />
   </component>
 </project>
