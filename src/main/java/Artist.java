@@ -1,3 +1,6 @@
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class Artist extends User{
@@ -41,6 +44,22 @@ public class Artist extends User{
             System.out.println("Album \"" + albumName + "\" already exists for artist " + getUsername() + ".");
         }
     }
+    public void createMusic(String musicName, int albumId, double duration, String category, boolean explicit) {
+        String query = "INSERT INTO MUSIC (Name, AlbumID, CategoryID, Explicit, PlayCount, ReleaseDate) " +
+                "VALUES (?, ?, (SELECT CategoryID FROM CATEGORY WHERE CategoryName = ?), ?, 0, CURDATE())";
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setString(1, musicName);
+            stmt.setInt(2, albumId);
+            stmt.setString(3, category);
+            stmt.setBoolean(4, explicit);
+            stmt.executeUpdate();
+            System.out.println("Music added successfully: " + musicName);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
     // Method to delete an album
     public void deleteMusic(String albumName) {
@@ -49,6 +68,22 @@ public class Artist extends User{
             System.out.println("Artist " + getUsername() + " deleted the album: \"" + albumName + "\".");
         } else {
             System.out.println("Album \"" + albumName + "\" not found for artist " + getUsername() + ".");
+        }
+    }
+    public void deleteMusic(int musicId) {
+        String query = "DELETE FROM MUSIC WHERE MusicID = ?";
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setInt(1, musicId);
+            int rowsAffected = stmt.executeUpdate();
+            if (rowsAffected > 0) {
+                System.out.println("Music deleted successfully.");
+            } else {
+                System.out.println("Music not found.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 
