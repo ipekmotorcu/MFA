@@ -4,8 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7f6ccafc-9584-455e-b7c1-612e6dd6ad77" name="Changes" comment="Connected to the database using the DBConnection class and implemented queries for Listener, Artist, and User">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="7f6ccafc-9584-455e-b7c1-612e6dd6ad77" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/MFA_DDL.sql" beforeDir="false" afterPath="$PROJECT_DIR$/MFA_DDL.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/DBConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DBConnection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/DatabaseTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/DatabaseTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,12 +28,8 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="MavenImportPreferences">
-    <option name="importingSettings">
-      <MavenImportingSettings>
-        <option name="workspaceImportEnabled" value="true" />
-      </MavenImportingSettings>
-    </option>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectId" id="2psUrKTedr6t1SNfojDNAnrJTzn" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -57,7 +55,12 @@
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
-  <component name="RunManager">
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Pınar\Documents\GitHub\MFA\src\main\java" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Application.DatabaseTest">
     <configuration name="DatabaseTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="DatabaseTest" />
       <module name="MFA" />
@@ -65,9 +68,23 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="LoginView" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="GUI.LoginView" />
+      <module name="MFA" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="GUI.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="Application.DatabaseTest" />
+        <item itemvalue="Application.LoginView" />
       </list>
     </recent_temporary>
   </component>
@@ -115,5 +132,16 @@
     <MESSAGE value="Database'e bağlandı bazı queryler yazıldı" />
     <MESSAGE value="Connected to the database using the DBConnection class and implemented queries for Listener, Artist, and User" />
     <option name="LAST_COMMIT_MESSAGE" value="Connected to the database using the DBConnection class and implemented queries for Listener, Artist, and User" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>jar://$PROJECT_DIR$/../../../../../Program Files/Java/jdk-19/lib/src.zip!/java.sql/java/sql/DriverManager.java</url>
+          <line>229</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

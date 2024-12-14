@@ -1,3 +1,8 @@
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class Playlist {
@@ -45,4 +50,88 @@ public class Playlist {
     public void removeMusic(Music music) {
         arrMusic.remove(music);
     }
+
+    public void addMusicToPlaylist(int musicID, int playlistID, LocalDate dateAdded) {
+        String checkPlaylistQuery = "SELECT COUNT(*) FROM PLAYLIST WHERE PlaylistID = ?";
+        String checkMusicQuery = "SELECT COUNT(*) FROM MUSIC WHERE MusicID = ?";
+        String checkDuplicateQuery = "SELECT COUNT(*) FROM PLAYLIST_MUSIC WHERE PlaylistID = ? AND MusicID = ?";
+        String insertMusicQuery = "INSERT INTO PLAYLIST_MUSIC (PlaylistID, MusicID, DateAdded) VALUES (?, ?, ?)";
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement checkPlaylistStmt = conn.prepareStatement(checkPlaylistQuery);
+             PreparedStatement checkMusicStmt = conn.prepareStatement(checkMusicQuery);
+             PreparedStatement checkDuplicateStmt = conn.prepareStatement(checkDuplicateQuery);
+             PreparedStatement insertStmt = conn.prepareStatement(insertMusicQuery)) {
+
+            // Check if PlaylistID exists
+            checkPlaylistStmt.setInt(1, playlistID);
+            try (ResultSet rs = checkPlaylistStmt.executeQuery()) {
+                if (rs.next() && rs.getInt(1) == 0) {
+                    System.out.println("Error: Playlist with ID " + playlistID + " does not exist.");
+                    return;
+                }
+            }
+
+            // Check if MusicID exists
+            checkMusicStmt.setInt(1, musicID);
+            try (ResultSet rs = checkMusicStmt.executeQuery()) {
+                if (rs.next() && rs.getInt(1) == 0) {
+                    System.out.println("Error: Music with ID " + musicID + " does not exist.");
+                    return;
+                }
+            }
+
+            // Check for duplicate entry
+            checkDuplicateStmt.setInt(1, playlistID);
+            checkDuplicateStmt.setInt(2, musicID);
+            try (ResultSet rs = checkDuplicateStmt.executeQuery()) {
+                if (rs.next() && rs.getInt(1) > 0) {
+                    System.out.println("Error: Music with ID " + musicID + " is already in Playlist " + playlistID);
+                    return;
+                }
+            }
+
+            // Insert the music into the playlist
+            insertStmt.setInt(1, playlistID);
+            insertStmt.setInt(2, musicID);
+            insertStmt.setDate(3, java.sql.Date.valueOf(dateAdded));
+
+            int rowsAffected = insertStmt.executeUpdate();
+            if (rowsAffected > 0) {
+                System.out.println("Music with ID " + musicID + " successfully added to Playlist " + playlistID);
+            } else {
+                System.out.println("Failed to add Music to Playlist.");
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void deleteMusicFromPlaylist(int playlistId, int musicId) {
+        String deleteMusicFromPlaylistQuery = "DELETE FROM PLAYLIST_MUSIC WHERE PlaylistID = ? AND MusicID = ?";
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement deleteStmt = conn.prepareStatement(deleteMusicFromPlaylistQuery)) {
+
+            // Set parameters for the DELETE query
+            deleteStmt.setInt(1, playlistId);
+            deleteStmt.setInt(2, musicId);
+
+            // Execute the DELETE query
+            int rowsAffected = deleteStmt.executeUpdate();
+
+            if (rowsAffected > 0) {
+                System.out.println("Music successfully deleted from playlist.");
+            } else {
+                System.out.println("No matching entry found to delete. Please check the PlaylistID and MusicID.");
+            }
+
+        } catch (SQLException e) {
+            System.err.println("An error occurred while deleting music from playlist.");
+            e.printStackTrace();
+        }
+    }
+
 }
+
