@@ -1,20 +1,36 @@
+import java.time.LocalDate;
+
 public class Music {
     private String musicName;
     private int musicID;
     private Album album;
-    private double duration;
+    //private double duration;
     private Artist artistName;
     private Category category;
     private boolean explicitLabel;
+    private int playCount;
+    private LocalDate releaseDate;
 
-    public Music(String musicName, int musicID, Album album, double duration, Artist artistName, Category category, boolean explicitLabel) {
+    public Music(String musicName, int musicID, Album album, Artist artistName, Category category, boolean explicitLabel) {
         this.musicName = musicName;
         this.musicID = musicID;
         this.album = album;
-        this.duration = duration;
+        //this.duration = duration;
         this.artistName = artistName;
         this.category = category;
         this.explicitLabel = explicitLabel;
+    }
+
+    public Music(String musicName, int musicID, Album album, Artist artistName, Category category, boolean explicitLabel, int playCount, LocalDate releaseDate) {
+        this.musicName = musicName;
+        this.musicID = musicID;
+        this.album = album;
+        this.artistName = artistName;
+        this.category = category;
+        this.explicitLabel = explicitLabel;
+        //this.duration = duration;
+        this.playCount = playCount;
+        this.releaseDate = releaseDate;
     }
 
     public String getMusicName() {
@@ -29,9 +45,9 @@ public class Music {
         return album;
     }
 
-    public double getDuration() {
+/*    public double getDuration() {
         return duration;
-    }
+    }*/
 
     public Artist getArtistName() {
         return artistName;
@@ -57,9 +73,9 @@ public class Music {
         this.album = album;
     }
 
-    public void setDuration(double duration) {
+    /*public void setDuration(double duration) {
         this.duration = duration;
-    }
+    }*/
 
     public void setArtistName(Artist artistName) {
         this.artistName = artistName;
@@ -71,5 +87,21 @@ public class Music {
 
     public void setExplicitLabel(boolean explicitLabel) {
         this.explicitLabel = explicitLabel;
+    }
+
+    public int getPlayCount() {
+        return playCount;
+    }
+
+    public void setPlayCount(int playCount) {
+        this.playCount = playCount;
+    }
+
+    public LocalDate getReleaseDate() {
+        return releaseDate;
+    }
+
+    public void setReleaseDate(LocalDate releaseDate) {
+        this.releaseDate = releaseDate;
     }
 }
