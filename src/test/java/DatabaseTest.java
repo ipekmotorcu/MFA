@@ -36,6 +36,9 @@ public class DatabaseTest {
             // Search for music by name
             //listener.searchMusic("Song Two");
             artist.viewStatistics();
+
+            Album album = new Album(1, "My Album");
+            Music newMusic = new Music("New Song", false, 0, LocalDate.now());
         }
     }
 
