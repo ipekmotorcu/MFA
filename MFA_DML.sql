@@ -1,4 +1,3 @@
-
 -- Insert data into ADMIN table
 INSERT INTO ADMIN (AdminName, AdminPassword) VALUES
                                                  ('Admin1', 'password123'),
@@ -75,4 +74,5 @@ SELECT * FROM listener;
 SELECT * FROM playlist;
 SELECT * FROM playlist_music;
 select * from reactions;
+
 
