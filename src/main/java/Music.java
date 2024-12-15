@@ -1,3 +1,6 @@
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.time.LocalDate;
 
 public class Music {
@@ -103,5 +106,31 @@ public class Music {
 
     public void setReleaseDate(LocalDate releaseDate) {
         this.releaseDate = releaseDate;
+    }
+
+    public void reactToMusic(int userId, int musicId, String reactionType) {
+        String insertReactionQuery = "INSERT INTO REACTIONS (UserID, MusicID, ReactionType) VALUES (?, ?, ?)";
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement insertStmt = conn.prepareStatement(insertReactionQuery)) {
+
+            // Set the parameters for the query
+            insertStmt.setInt(1, userId);
+            insertStmt.setInt(2, musicId);
+            insertStmt.setString(3, reactionType);
+
+            // Execute the INSERT query
+            int rowsAffected = insertStmt.executeUpdate();
+
+            if (rowsAffected > 0) {
+                System.out.println("Reaction successfully added!");
+            } else {
+                System.out.println("Failed to add the reaction. Please check your inputs.");
+            }
+
+        } catch (SQLException e) {
+            System.err.println("An error occurred while adding a reaction.");
+            e.printStackTrace();
+        }
     }
 }
