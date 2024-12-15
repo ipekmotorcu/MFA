@@ -49,7 +49,9 @@ public class DatabaseTest {
             Playlist playlist=new Playlist("hits");
            // playlist.addMusicToPlaylist(2,4,LocalDate.of(2022, 01, 01));
 
-            playlist.deleteMusicFromPlaylist(1, 3);
+            playlist.deleteMusicFromPlaylist(1, 3 );
+
+            newMusic.reactToMusic(1, 2, "like");
         }
     }
 
