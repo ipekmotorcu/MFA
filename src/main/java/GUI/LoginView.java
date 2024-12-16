@@ -2,28 +2,22 @@ package GUI;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.*;
 
 public class LoginView extends JFrame {
-
     JLabel userLabel, passwordLabel, titleLabel;
     JTextField userText;
-    JTextField passwordText;
+    JPasswordField passwordText; // Use JPasswordField for password security
     JButton loginButton;
-
-    public JTextField getUserText() {
-        return userText;
-    }
-
-    public JTextField getPasswordText() {
-        return passwordText;
-    }
-
-    public JButton getLoginButton() {
-        return loginButton;
-    }
+    Connection connection;
 
     public LoginView() {
         this.setTitle("LOGIN to MFA");
+
+        // Connect to database
+        connectToDatabase();
 
         // Main panel
         JPanel loginPanel = new JPanel();
@@ -58,6 +52,14 @@ public class LoginView extends JFrame {
         loginButton.setBounds(100, 200, 160, 25);
         loginPanel.add(loginButton);
 
+        // Button action
+        loginButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                validateUser();
+            }
+        });
+
         // Add the main panel to the frame
         this.setContentPane(loginPanel);
         this.setSize(400, 400);
@@ -65,8 +67,67 @@ public class LoginView extends JFrame {
         this.setVisible(true);
     }
 
+    // Connect to the database
+    private void connectToDatabase() {
+        try {
+            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/mfa", "root", "im66709903");
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Database connection failed: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            System.exit(1);
+        }
+    }
+
+    // Validate user credentials and open the corresponding view
+    private void validateUser() {
+        String username = userText.getText();
+        String password = new String(passwordText.getPassword());
+
+        if (username.isEmpty() || password.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Username or password cannot be empty.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        try {
+            String query = "SELECT UserType, UserID FROM USER WHERE Username = ? AND Password = ?";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1, username);
+            statement.setString(2, password);
+
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                String role = resultSet.getString("UserType");
+                int userId = resultSet.getInt("UserID");
+
+                openUserView(role, userId);
+            } else {
+                JOptionPane.showMessageDialog(this, "Invalid username or password.", "Login Failed", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Error validating user: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    // Open the appropriate view based on user role
+    private void openUserView(String role, int userId) {
+        this.dispose(); // Close the login window
+
+        switch (role.toLowerCase()) {
+            case "admin":
+                //new AdminView(userId); /
+                break;
+            case "listener":
+                new ListenerView(userId); // Open ListenerView for listeners
+                break;
+            case "artist":
+               // new ArtistView(userId); //
+                break;
+            default:
+                JOptionPane.showMessageDialog(this, "Unknown role: " + role, "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
     public static void main(String[] args) {
-        System.out.println("Project is set up!");
         new LoginView();
     }
 }
