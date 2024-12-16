@@ -5,11 +5,11 @@ INSERT INTO ADMIN (AdminName, AdminPassword) VALUES
 
 -- Insert data into USER table
 INSERT INTO USER (Username, Password, DateOfBirth, Age, UserType, IsBanned) VALUES
-                                                                                ('listener1', 'pass123', '1990-05-15', 33, 'Listener', FALSE),
-                                                                                ('listener2', 'pass456', '1995-07-20', 28, 'Listener', FALSE),
+                                                                                ('listener1', 'pass123', '1990-05-15', 33, 'database.Listener', FALSE),
+                                                                                ('listener2', 'pass456', '1995-07-20', 28, 'database.Listener', FALSE),
                                                                                 ('artist1', 'pass789', '1985-03-10', 38, 'Artist', FALSE),
                                                                                 ('artist2', 'pass012', '1992-08-25', 31, 'Artist', FALSE),
-                                                                                ('bannedUser', 'ban123', '1990-01-01', 34, 'Listener', TRUE);
+                                                                                ('bannedUser', 'ban123', '1990-01-01', 34, 'database.Listener', TRUE);
 
 -- Insert data into LISTENER table
 INSERT INTO LISTENER (UserID, TopPlayTime) VALUES

@@ -1,3 +1,5 @@
+import database.Listener;
+
 public class DatabaseTest {
 
         public static void main(String[] args) {
@@ -19,7 +21,7 @@ public class DatabaseTest {
             //admin.deleteUser(8);
             //artist.createMusic("Song1", 1, 3.5, "Pop", false);
 
-            Listener listener = new Listener(1, "JohnDoe", 25);
+            //Listener listener = new Listener(1, "JohnDoe", 25);
 
             // Create a new playlist
             //listener.createPlaylist("My Favorite Songs");

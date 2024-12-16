@@ -21,7 +21,7 @@ public class DatabaseTest {
             //admin.deleteUser(8);
             //artist.createMusic("Song1", 1, 3.5, "Pop", false);
 
-            //Listener listener = new Listener(1, "JohnDoe", 25);
+            //database.Listener listener = new database.Listener(1, "JohnDoe", 25);
 
             // Create a new playlist
             //listener.createPlaylist("My Favorite Songs");

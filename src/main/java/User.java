@@ -42,7 +42,7 @@ public class User {
         String query = "INSERT INTO PLAYLIST (ListenerID, PlaylistName, CreationDate, IsPublic) VALUES (?, ?, CURDATE(), TRUE)";
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(query)) {
-            stmt.setInt(1, getUserId()); // Use the Listener's UserID as ListenerID
+            stmt.setInt(1, getUserId()); // Use the database.Listener's UserID as ListenerID
             stmt.setString(2, playlistName);
             stmt.executeUpdate();
             System.out.println("Playlist created successfully: " + playlistName);
