@@ -1,4 +1,6 @@
-public class LittleListener extends Listener{
+import database.Listener;
+
+/*public class LittleListener extends Listener {
     public LittleListener(int userId, String username, int age) {
         super(userId, username, age);
     }
@@ -7,9 +9,9 @@ public class LittleListener extends Listener{
        /* MusicDAO musicDAO = new MusicDAO();
         List<Music> nonExplicitMusic = musicDAO.getNonExplicitMusic();
 
-        System.out.println("Available Music for Little Listener:");
+        System.out.println("Available Music for Little database.Listener:");
         for (Music music : nonExplicitMusic) {
             System.out.println(music.getMusicName() + " - " + music.getCategory());
-        }*/
+        }
     }
-}
+}*/

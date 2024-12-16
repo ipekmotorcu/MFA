@@ -64,11 +64,11 @@ public class Admin {
         }
     }
 
-    // Method to create a new Listener
+    // Method to create a new database.Listener
     //Hem listener tablosuna hem de user tablosuna ekliyor ama user ve listener Id leri aynı olmuyor bu sıkıntı yaratmaz gibi geldi ama gerekirse düzeltebiliriz
     public void createListener(String username, int age) {
         String userQuery = "INSERT INTO USER (Username, Password, DateOfBirth, Age, UserType, IsBanned) " +
-                "VALUES (?, 'default_password', CURDATE(), ?, 'Listener', FALSE)";
+                "VALUES (?, 'default_password', CURDATE(), ?, 'database.Listener', FALSE)";
         String listenerQuery = "INSERT INTO LISTENER (UserID, TopPlayTime) VALUES (?, 0)";
 
         try (Connection conn = DBConnection.getConnection();
@@ -89,7 +89,7 @@ public class Admin {
                     listenerStmt.setInt(1, userId);
                     listenerStmt.executeUpdate();
 
-                    System.out.println("Listener created successfully: " + username);
+                    System.out.println("database.Listener created successfully: " + username);
                 } else {
                     throw new SQLException("Creating user failed, no UserID obtained.");
                 }
