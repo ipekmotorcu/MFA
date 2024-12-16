@@ -38,7 +38,7 @@ public class DatabaseTest {
             artist.viewStatistics();
 
             Album album = new Album(1, "My Album");
-            Music newMusic = new Music("New Song", false, 0, LocalDate.now());
+            //Music newMusic = new Music("New Song", false, 0, LocalDate.now());
         }
     }
 
