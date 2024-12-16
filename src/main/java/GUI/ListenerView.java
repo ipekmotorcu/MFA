@@ -63,7 +63,7 @@ public class ListenerView extends JFrame {
         JPanel dashboardPanel = new JPanel(new BorderLayout());
 
         // Title
-        JLabel titleLabel = new JLabel("database.Listener Dashboard", SwingConstants.CENTER);
+        JLabel titleLabel = new JLabel("Listener Dashboard", SwingConstants.CENTER);
         titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
         dashboardPanel.add(titleLabel, BorderLayout.NORTH);
 
