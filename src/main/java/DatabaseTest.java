@@ -15,7 +15,7 @@ public class DatabaseTest {
             //admin.viewStatistics();
 
             // Test createListener(çalışıyor)
-           admin.createListener("NewListener", 25);
+           admin.createListener("NewListener", "123",18);
 
             // Test deleteUser(çalışıyor)
             //admin.deleteUser(8);
