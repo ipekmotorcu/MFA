@@ -3,7 +3,7 @@ INSERT INTO ADMIN (AdminName, AdminPassword) VALUES
                                                  ('Admin1', 'password123'),
                                                  ('Admin2', 'securepass456');
 
--- Insert data into USER table there was a typo here
+-- Insert data into USER table
 INSERT INTO USER (Username, Password, DateOfBirth, Age, UserType, IsBanned) VALUES
                                                                                 ('listener1', 'pass123', '1990-05-15', 33, 'Listener', FALSE),
                                                                                 ('listener2', 'pass456', '1995-07-20', 28, 'Listener', FALSE),
