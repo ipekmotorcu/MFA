@@ -1,7 +1,5 @@
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import javax.swing.*;
+import java.sql.*;
 
 public class Admin {
     private int adminId;
@@ -66,9 +64,9 @@ public class Admin {
 
     // Method to create a new database.Listener
     //Hem listener tablosuna hem de user tablosuna ekliyor ama user ve listener Id leri aynı olmuyor bu sıkıntı yaratmaz gibi geldi ama gerekirse düzeltebiliriz
-    public void createListener(String username, int age) {
+    public void createListener(String username, String password, int age) {
         String userQuery = "INSERT INTO USER (Username, Password, DateOfBirth, Age, UserType, IsBanned) " +
-                "VALUES (?, 'default_password', CURDATE(), ?, 'database.Listener', FALSE)";
+                "VALUES (?, ?, CURDATE(), ?, 'listener', FALSE)";
         String listenerQuery = "INSERT INTO LISTENER (UserID, TopPlayTime) VALUES (?, 0)";
 
         try (Connection conn = DBConnection.getConnection();
@@ -77,7 +75,8 @@ public class Admin {
 
             // Insert into USER table
             userStmt.setString(1, username);
-            userStmt.setInt(2, age);
+            userStmt.setString(2, password);  // Insert password as well
+            userStmt.setInt(3, age);
             userStmt.executeUpdate();
 
             // Retrieve the generated UserID
@@ -89,7 +88,7 @@ public class Admin {
                     listenerStmt.setInt(1, userId);
                     listenerStmt.executeUpdate();
 
-                    System.out.println("database.Listener created successfully: " + username);
+                    System.out.println("Listener created successfully: " + username);
                 } else {
                     throw new SQLException("Creating user failed, no UserID obtained.");
                 }
@@ -101,12 +100,13 @@ public class Admin {
     }
 
 
+
     // User'ı bütün tablolardan siliyor,  ban user da olabilir bunun adı ama burada engellemek yerine siliyoruz
-    public void deleteUser(int userId) {
-        String deleteFromFollowers = "DELETE FROM FOLLOWERS WHERE UserID = ? OR ArtistID IN (SELECT ArtistID FROM ARTIST WHERE UserID = ?)";
-        String deleteFromPlaylistMusic = "DELETE FROM PLAYLIST_MUSIC WHERE PlaylistID IN (SELECT PlaylistID FROM PLAYLIST WHERE ListenerID IN (SELECT ListenerID FROM LISTENER WHERE UserID = ?))";
-        String deleteFromPlaylist = "DELETE FROM PLAYLIST WHERE ListenerID IN (SELECT ListenerID FROM LISTENER WHERE UserID = ?)";
-        String deleteFromLittleListener = "DELETE FROM LITTLE_LISTENER WHERE ListenerID IN (SELECT ListenerID FROM LISTENER WHERE UserID = ?)";
+/*    public void deleteUser(int userId) {
+        String deleteFromFollowers = "DELETE FROM FOLLOWERS WHERE UserID = ? OR ArtistID IN (SELECT UserID FROM ARTIST WHERE UserID = ?)";
+        String deleteFromPlaylistMusic = "DELETE FROM PLAYLIST_MUSIC WHERE PlaylistID IN (SELECT PlaylistID FROM PLAYLIST WHERE ListenerID IN (SELECT UserID FROM LISTENER WHERE UserID = ?))";
+        String deleteFromPlaylist = "DELETE FROM PLAYLIST WHERE ListenerID IN (SELECT UserID FROM LISTENER WHERE UserID = ?)";
+        String deleteFromLittleListener = "DELETE FROM LITTLE_LISTENER WHERE UserID IN (SELECT UserID FROM LISTENER WHERE UserID = ?)";
         String deleteFromListener = "DELETE FROM LISTENER WHERE UserID = ?";
         String deleteFromArtist = "DELETE FROM ARTIST WHERE UserID = ?";
         String deleteFromUser = "DELETE FROM USER WHERE UserID = ?";
@@ -167,7 +167,28 @@ public class Admin {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }*/
+
+    public void banUserInDB(int userId) {
+        String deleteQuery = "DELETE FROM USER WHERE UserID = ?";
+
+        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/mfa?serverTimezone=Europe/Istanbul", "root", "Pinar#18");
+             PreparedStatement ps = conn.prepareStatement(deleteQuery)) {
+
+            ps.setInt(1, userId);
+            int rowsAffected = ps.executeUpdate();
+
+            if (rowsAffected > 0) {
+                System.out.println("User deleted successfully.");
+            } else {
+                System.out.println("User not found.");
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error deleting user: " + e.getMessage(), "Database Error", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+        }
     }
+
 
 }
 
