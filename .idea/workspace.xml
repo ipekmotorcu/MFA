@@ -4,15 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7f6ccafc-9584-455e-b7c1-612e6dd6ad77" name="Changes" comment="Connected to the database using the DBConnection class and implemented queries for Listener, Artist, and User">
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/AdminView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="7f6ccafc-9584-455e-b7c1-612e6dd6ad77" name="Changes" comment="Updated ListenerView and Listener now it is working">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Admin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Admin.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/DBConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DBConnection.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/DatabaseTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DatabaseTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/AdminView.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/GUI/ListenerView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/ListenerView.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -33,6 +27,13 @@
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="importingSettings">
+      <MavenImportingSettings>
+        <option name="workspaceImportEnabled" value="true" />
+      </MavenImportingSettings>
+    </option>
   </component>
   <component name="ProjectId" id="2psUrKTedr6t1SNfojDNAnrJTzn" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -58,27 +59,9 @@
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
-  <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\Pınar\Documents\GitHub\MFA\src\main\java\database" />
-    </key>
-  </component>
-  <component name="RunManager" selected="Application.AdminView">
+  <component name="RunManager" selected="Application.ListenerView">
     <configuration name="AdminView" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="AdminView" />
-      <module name="MFA" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value=".*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ArtistView" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="GUI.ArtistView" />
+      <option name="MAIN_CLASS_NAME" value="GUI.AdminView" />
       <module name="MFA" />
       <extension name="coverage">
         <pattern>
@@ -97,12 +80,12 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="GUI.ListenerView" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+    <configuration name="ListenerView" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="GUI.ListenerView" />
       <module name="MFA" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value=".*" />
+          <option name="PATTERN" value="GUI.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -110,12 +93,12 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="GUI.LoginView" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+    <configuration name="LoginView" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="GUI.LoginView" />
       <module name="MFA" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value=".*" />
+          <option name="PATTERN" value="GUI.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -125,11 +108,10 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.ListenerView" />
+        <item itemvalue="Application.LoginView" />
         <item itemvalue="Application.AdminView" />
-        <item itemvalue="Application.GUI.ListenerView" />
-        <item itemvalue="Application.ArtistView" />
         <item itemvalue="Application.DatabaseTest" />
-        <item itemvalue="Application.GUI.LoginView" />
       </list>
     </recent_temporary>
   </component>
@@ -144,7 +126,6 @@
       <workItem from="1733554477905" duration="3189000" />
       <workItem from="1733664329541" duration="2108000" />
       <workItem from="1734198665322" duration="607000" />
-      <workItem from="1734420456842" duration="14175000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <created>1733555747767</created>
@@ -186,17 +167,6 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
-  </component>
-  <component name="Vcs.Log.Tabs.Properties">
-    <option name="TAB_STATES">
-      <map>
-        <entry key="MAIN">
-          <value>
-            <State />
-          </value>
-        </entry>
-      </map>
-    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Initial commit" />

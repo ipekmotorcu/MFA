@@ -52,7 +52,7 @@ public class ListenerView extends JFrame {
 
     private void connectToDatabase() {
         try {
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/mfa?serverTimezone=Europe/Istanbul", "root", "Pinar#18");
+            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/mfa", "root", "im66709903");
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(this, "Database connection failed: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             System.exit(1);
