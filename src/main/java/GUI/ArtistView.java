@@ -126,7 +126,7 @@ public class ArtistView extends JFrame {
     private JPanel createAlbumDetailPanel() {
         JPanel albumPanel = new JPanel(new BorderLayout());
 
-        // Album info
+        // database.Album info
         JPanel infoPanel = new JPanel(new GridLayout(3, 2, 5, 5));
         infoPanel.setBorder(BorderFactory.createTitledBorder("Album Information"));
         infoPanel.add(new JLabel("Album Name:"));
@@ -163,7 +163,7 @@ public class ArtistView extends JFrame {
         String albumName = JOptionPane.showInputDialog(this, "Enter album name:");
         if (albumName != null && !albumName.isEmpty()) {
             // In real application, this would create a new album in the database
-            JOptionPane.showMessageDialog(this, "Album '" + albumName + "' created successfully!");
+            JOptionPane.showMessageDialog(this, ".Album '" + albumName + "' created successfully!");
         }
     }
 
@@ -228,13 +228,13 @@ public class ArtistView extends JFrame {
 
     /*public ArtistView() {
         // Frame
-        setTitle("Artist Dashboard");
+        setTitle("database.Artist Dashboard");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(800, 600);
         setLayout(new BorderLayout());
 
         // Title
-        JLabel titleLabel = new JLabel("Artist Dashboard", SwingConstants.CENTER);
+        JLabel titleLabel = new JLabel("database.Artist Dashboard", SwingConstants.CENTER);
         titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
         add(titleLabel, BorderLayout.NORTH);
 
@@ -251,8 +251,8 @@ public class ArtistView extends JFrame {
 
         //Buttons
         JPanel buttonPanel = new JPanel();
-        JButton createAlbumButton = new JButton("Create Album");
-        JButton modifyAlbum = new JButton("Modify Album");
+        JButton createAlbumButton = new JButton("Create database.Album");
+        JButton modifyAlbum = new JButton("Modify database.Album");
         buttonPanel.add(createAlbumButton);
         buttonPanel.add(modifyAlbum);;
         centerPanel.add(buttonPanel, BorderLayout.SOUTH);

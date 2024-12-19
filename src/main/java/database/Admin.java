@@ -1,3 +1,5 @@
+package database;
+
 import javax.swing.*;
 import java.sql.*;
 
@@ -15,14 +17,14 @@ public class Admin {
         String query = "INSERT INTO MUSIC (Name, AlbumID, CategoryID, Explicit, PlayCount, ReleaseDate) " +
                 "VALUES (?, ?, (SELECT CategoryID FROM CATEGORY WHERE CategoryName = ?), ?, 0, CURDATE())";
 
-        try (Connection conn = DBConnection.getConnection();
+        try (Connection conn = database.DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setString(1, musicName);
             stmt.setInt(2, albumId);
             stmt.setString(3, category);
             stmt.setBoolean(4, explicit);
             stmt.executeUpdate();
-            System.out.println("Music added successfully: " + musicName);
+            System.out.println("database.Music added successfully: " + musicName);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -32,14 +34,14 @@ public class Admin {
    /* public void deleteMusic(int musicId) {
         String query = "DELETE FROM MUSIC WHERE MusicID = ?";
 
-        try (Connection conn = DBConnection.getConnection();
+        try (Connection conn = database.DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setInt(1, musicId);
             int rowsAffected = stmt.executeUpdate();
             if (rowsAffected > 0) {
-                System.out.println("Music deleted successfully.");
+                System.out.println("database.Music deleted successfully.");
             } else {
-                System.out.println("Music not found.");
+                System.out.println("database.Music not found.");
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -53,7 +55,7 @@ public class Admin {
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(query);
              ResultSet rs = stmt.executeQuery()) {
-            System.out.println("Top 10 Most Played Music:");
+            System.out.println("Top 10 Most Played database.Music:");
             while (rs.next()) {
                 System.out.println("- " + rs.getString("Name") + " (Plays: " + rs.getInt("PlayCount") + ")");
             }
@@ -101,7 +103,7 @@ public class Admin {
 
 
 
-    // User'ı bütün tablolardan siliyor,  ban user da olabilir bunun adı ama burada engellemek yerine siliyoruz
+    // database.User'ı bütün tablolardan siliyor,  ban user da olabilir bunun adı ama burada engellemek yerine siliyoruz
 /*    public void deleteUser(int userId) {
         String deleteFromFollowers = "DELETE FROM FOLLOWERS WHERE UserID = ? OR ArtistID IN (SELECT UserID FROM ARTIST WHERE UserID = ?)";
         String deleteFromPlaylistMusic = "DELETE FROM PLAYLIST_MUSIC WHERE PlaylistID IN (SELECT PlaylistID FROM PLAYLIST WHERE ListenerID IN (SELECT UserID FROM LISTENER WHERE UserID = ?))";
@@ -111,7 +113,7 @@ public class Admin {
         String deleteFromArtist = "DELETE FROM ARTIST WHERE UserID = ?";
         String deleteFromUser = "DELETE FROM USER WHERE UserID = ?";
 
-        try (Connection conn = DBConnection.getConnection()) {
+        try (Connection conn = database.DBConnection.getConnection()) {
             conn.setAutoCommit(false); // Start transaction
 
             // Delete from FOLLOWERS
@@ -156,9 +158,9 @@ public class Admin {
                 stmt.setInt(1, userId);
                 int rowsAffected = stmt.executeUpdate();
                 if (rowsAffected > 0) {
-                    System.out.println("User deleted successfully.");
+                    System.out.println("database.User deleted successfully.");
                 } else {
-                    System.out.println("User not found.");
+                    System.out.println("database.User not found.");
                 }
             }
 
@@ -172,16 +174,17 @@ public class Admin {
     public void banUserInDB(int userId) {
         String deleteQuery = "DELETE FROM USER WHERE UserID = ?";
 
-        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/mfa?serverTimezone=Europe/Istanbul", "root", "Pinar#18");
+        try (//Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/mfa", "root", "im66709903");
+             Connection conn = DBConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(deleteQuery)) {
 
             ps.setInt(1, userId);
             int rowsAffected = ps.executeUpdate();
 
             if (rowsAffected > 0) {
-                System.out.println("User deleted successfully.");
+                System.out.println("database.User deleted successfully.");
             } else {
-                System.out.println("User not found.");
+                System.out.println("database.User not found.");
             }
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error deleting user: " + e.getMessage(), "Database Error", JOptionPane.ERROR_MESSAGE);

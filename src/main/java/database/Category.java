@@ -1,3 +1,5 @@
+package database;
+
 public class Category {
     private String categoryName;
 
@@ -16,7 +18,7 @@ public class Category {
 
     // Add a new category to database
     /*public void addCategory(String categoryName) {
-        String query = "INSERT INTO Category (CategoryName) VALUES (?)";
+        String query = "INSERT INTO database.Category (CategoryName) VALUES (?)";
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setString(1, categoryName);
@@ -27,14 +29,14 @@ public class Category {
     }
 
     // Get all categories from database
-    public List<Category> getAllCategories() {
-        List<Category> categories = new ArrayList<>();
-        String query = "SELECT * FROM Category";
+    public List<database.Category> getAllCategories() {
+        List<database.Category> categories = new ArrayList<>();
+        String query = "SELECT * FROM database.Category";
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(query);
              ResultSet rs = stmt.executeQuery()) {
             while (rs.next()) {
-                Category category = new Category(
+                database.Category category = new database.Category(
                         rs.getInt("CategoryID"),
                         rs.getString("CategoryName")
                 );
@@ -50,7 +52,7 @@ public class Category {
 
     // Delete a category
     public void deleteCategory(int categoryId) {
-        String query = "DELETE FROM Category WHERE CategoryID = ?";
+        String query = "DELETE FROM database.Category WHERE CategoryID = ?";
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setInt(1, categoryId);

@@ -1,3 +1,5 @@
+package database;
+
 public interface MusicManageable {
 
         void createMusic(String musicName, int albumId, double duration, String category, boolean explicit);

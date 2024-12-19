@@ -1,4 +1,6 @@
-import database.Listener;
+import database.Admin;
+import database.Album;
+import database.Artist;
 
 public class DatabaseTest {
 
@@ -39,8 +41,8 @@ public class DatabaseTest {
             //listener.searchMusic("Song Two");
             artist.viewStatistics();
 
-            Album album = new Album(1, "My Album");
-            //Music newMusic = new Music("New Song", false, 0, LocalDate.now());
+            Album album = new Album(1, "My database.Album");
+            //database.Music newMusic = new database.Music("New Song", false, 0, LocalDate.now());
         }
     }
 

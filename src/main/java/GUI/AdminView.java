@@ -1,16 +1,20 @@
+package GUI;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.*;
-
+import database.Admin;
+import database.DBConnection;
 public class AdminView extends JFrame {
     private Admin admin;
-    private CardLayout cardLayout; // To switch between Main Page, Ban User Page, and Statistics Page
+    private CardLayout cardLayout; // To switch between Main Page, Ban database.User Page, and Statistics Page
     private JPanel mainPanel, banUserPanel, statisticsPanel, containerPanel;
-
-    public AdminView(Admin admin) {
-        this.admin = admin;
+    private int userid;
+    public AdminView(int userid) {
+        this.userid = userid;
+        this.admin=new Admin(userid,"admin");
 
         // Frame settings
         setTitle("Admin Main Page");
@@ -131,7 +135,7 @@ public class AdminView extends JFrame {
         searchPanel.add(searchButton);
         panel.add(searchPanel, BorderLayout.NORTH);
 
-        // User List Panel
+        // database.User List Panel
         DefaultListModel<String> userListModel = new DefaultListModel<>();
         JList<String> userList = new JList<>(userListModel);
         JScrollPane scrollPane = new JScrollPane(userList);
@@ -149,7 +153,7 @@ public class AdminView extends JFrame {
 
         panel.add(actionPanel, BorderLayout.SOUTH);
 
-        // Ban User Action
+        // Ban database.User Action
         banButton.addActionListener(e -> {
             String selectedUser = userList.getSelectedValue();
             if (selectedUser == null) {
@@ -227,7 +231,7 @@ public class AdminView extends JFrame {
             query += " AND Username LIKE ?";
         }
 
-        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/mfa?serverTimezone=Europe/Istanbul", "root", "Pinar#18");
+        try (Connection conn = DBConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(query)) {
 
             if (searchTerm != null && !searchTerm.trim().isEmpty()) {
@@ -252,7 +256,8 @@ public class AdminView extends JFrame {
         String statsQuery = "SELECT COUNT(*) AS totalUsers FROM USER";
         String topMusicQuery = "SELECT m.Name, m.PlayCount FROM MUSIC m ORDER BY m.PlayCount DESC LIMIT 10"; // Query for top 10 most listened music
 
-        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/mfa?serverTimezone=Europe/Istanbul", "root", "Pinar#18");
+        try (//Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/mfa", "root", "im66709903");
+             Connection conn = DBConnection.getConnection();
              Statement stmt = conn.createStatement()) {
 
             // Fetch general statistics
@@ -291,9 +296,9 @@ public class AdminView extends JFrame {
             int rowsAffected = ps.executeUpdate();
 
             if (rowsAffected > 0) {
-                System.out.println("User deleted successfully.");
+                System.out.println("database.User deleted successfully.");
             } else {
-                System.out.println("User not found.");
+                System.out.println("database.User not found.");
             }
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(this, "Error deleting user: " + e.getMessage(), "Database Error", JOptionPane.ERROR_MESSAGE);
@@ -303,7 +308,7 @@ public class AdminView extends JFrame {
 */
 
     public static void main(String[] args) {
-        Admin admin = new Admin(1, "AdminName"); // Example Admin instance
-        new AdminView(admin);
+        Admin admin = new Admin(1, "AdminName"); // Example database.Admin instance
+        new AdminView(6);
     }
 }

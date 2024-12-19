@@ -1,11 +1,5 @@
 -- Create table for ADMIN
-DROP TABLE USER, ADMIN,LISTENER, LITTLE_LISTENER,ARTIST, FOLLOWERS, ALBUM, CATEGORY, MUSIC, REACTIONS, PLAYLIST, PLAYLIST_MUSIC;
-
-CREATE TABLE ADMIN (
-                       AdminID INT AUTO_INCREMENT PRIMARY KEY,
-                       AdminName VARCHAR(255) NOT NULL,
-                       AdminPassword VARCHAR(255) NOT NULL
-);
+DROP TABLE USER, ADMIN, LISTENER, LITTLE_LISTENER, ARTIST, FOLLOWERS, ALBUM, CATEGORY, MUSIC, REACTIONS, PLAYLIST, PLAYLIST_MUSIC;
 
 -- Create table for USER
 CREATE TABLE USER (
@@ -15,27 +9,35 @@ CREATE TABLE USER (
                       DateOfBirth DATE,
                       Age INTEGER,
                       UserType VARCHAR(30),
-                      CHECK (UserType in ('artist','listener')),
+                      CHECK (UserType IN ('artist', 'listener', 'admin')),
                       IsBanned BOOLEAN DEFAULT FALSE
+);
+
+-- Create table for ADMIN
+CREATE TABLE ADMIN (
+                       UserID INT PRIMARY KEY,
+                       AdminName VARCHAR(255) NOT NULL,
+                       AdminPassword VARCHAR(255) NOT NULL,
+                       FOREIGN KEY (UserID) REFERENCES USER(UserID) ON DELETE CASCADE
 );
 
 -- Create table for LISTENER
 CREATE TABLE LISTENER (
-                          UserID INT AUTO_INCREMENT PRIMARY KEY,
+                          UserID INT PRIMARY KEY,
                           TopPlayTime INTEGER,
                           FOREIGN KEY (UserID) REFERENCES USER(UserID) ON DELETE CASCADE
 );
 
 -- Create table for LITTLE_LISTENER
 CREATE TABLE LITTLE_LISTENER (
-                                 UserID INT AUTO_INCREMENT PRIMARY KEY,
+                                 UserID INT PRIMARY KEY,
                                  ParentID INTEGER NOT NULL,
                                  FOREIGN KEY (UserID) REFERENCES LISTENER(UserID) ON DELETE CASCADE
 );
 
 -- Create table for ARTIST
 CREATE TABLE ARTIST (
-                        UserID INT AUTO_INCREMENT PRIMARY KEY,
+                        UserID INT PRIMARY KEY,
                         Name VARCHAR(255) NOT NULL,
                         Genre VARCHAR(255),
                         FollowerCount INTEGER DEFAULT 0,
@@ -60,11 +62,13 @@ CREATE TABLE ALBUM (
                        TracksCount INTEGER DEFAULT 0,
                        FOREIGN KEY (ArtistID) REFERENCES ARTIST(UserID) ON DELETE CASCADE
 );
+
 -- Create table for CATEGORY
 CREATE TABLE CATEGORY (
                           CategoryID INT AUTO_INCREMENT PRIMARY KEY,
                           CategoryName VARCHAR(255) NOT NULL
 );
+
 -- Create table for MUSIC
 CREATE TABLE MUSIC (
                        MusicID INT AUTO_INCREMENT PRIMARY KEY,
@@ -78,16 +82,14 @@ CREATE TABLE MUSIC (
                        FOREIGN KEY (CategoryID) REFERENCES CATEGORY(CategoryID) ON DELETE CASCADE
 );
 
-
-
 -- Create table for REACTIONS
 CREATE TABLE REACTIONS (
                            ReactionID INT AUTO_INCREMENT PRIMARY KEY,
                            UserID INTEGER NOT NULL,
                            MusicID INTEGER NOT NULL,
                            ReactionType VARCHAR(255) NOT NULL,
-                           FOREIGN KEY (UserID) REFERENCES USER(UserID)  ON DELETE CASCADE,
-                           FOREIGN KEY (MusicID) REFERENCES MUSIC(MusicID)  ON DELETE CASCADE
+                           FOREIGN KEY (UserID) REFERENCES USER(UserID) ON DELETE CASCADE,
+                           FOREIGN KEY (MusicID) REFERENCES MUSIC(MusicID) ON DELETE CASCADE
 );
 
 -- Create table for PLAYLIST
@@ -97,7 +99,7 @@ CREATE TABLE PLAYLIST (
                           PlaylistName VARCHAR(255),
                           CreationDate DATE,
                           IsPublic BOOLEAN DEFAULT TRUE,
-                          FOREIGN KEY (ListenerID) REFERENCES LISTENER(UserID)  ON DELETE CASCADE
+                          FOREIGN KEY (ListenerID) REFERENCES LISTENER(UserID) ON DELETE CASCADE
 );
 
 -- Create table for PLAYLIST_MUSIC
@@ -106,7 +108,6 @@ CREATE TABLE PLAYLIST_MUSIC (
                                 MusicID INTEGER NOT NULL,
                                 DateAdded DATE,
                                 PRIMARY KEY (PlaylistID, MusicID),
-                                FOREIGN KEY (PlaylistID) REFERENCES PLAYLIST(PlaylistID)  ON DELETE CASCADE,
-                                FOREIGN KEY (MusicID) REFERENCES MUSIC(MusicID)  ON DELETE CASCADE
+                                FOREIGN KEY (PlaylistID) REFERENCES PLAYLIST(PlaylistID) ON DELETE CASCADE,
+                                FOREIGN KEY (MusicID) REFERENCES MUSIC(MusicID) ON DELETE CASCADE
 );
-

@@ -1,3 +1,8 @@
+package database;
+
+import database.DBConnection;
+import database.Playlist;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -45,7 +50,7 @@ public class User {
             stmt.setInt(1, getUserId()); // Use the database.Listener's UserID as ListenerID
             stmt.setString(2, playlistName);
             stmt.executeUpdate();
-            System.out.println("Playlist created successfully: " + playlistName);
+            System.out.println("database.Playlist created successfully: " + playlistName);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -59,7 +64,7 @@ public class User {
             stmt.setInt(1, playlistId);
             stmt.setInt(2, musicId);
             stmt.executeUpdate();
-            System.out.println("Music added to playlist successfully.");
+            System.out.println("database.Music added to playlist successfully.");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -74,9 +79,9 @@ public class User {
             stmt.setInt(2, musicId);
             int rowsAffected = stmt.executeUpdate();
             if (rowsAffected > 0) {
-                System.out.println("Music removed from playlist successfully.");
+                System.out.println("database.Music removed from playlist successfully.");
             } else {
-                System.out.println("Music not found in playlist.");
+                System.out.println("database.Music not found in playlist.");
             }
         } catch (SQLException e) {
             e.printStackTrace();
