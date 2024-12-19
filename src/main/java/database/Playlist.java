@@ -1,3 +1,8 @@
+package database;
+
+import database.DBConnection;
+import database.Music;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -67,7 +72,7 @@ public class Playlist {
             checkPlaylistStmt.setInt(1, playlistID);
             try (ResultSet rs = checkPlaylistStmt.executeQuery()) {
                 if (rs.next() && rs.getInt(1) == 0) {
-                    System.out.println("Error: Playlist with ID " + playlistID + " does not exist.");
+                    System.out.println("Error: database.Playlist with ID " + playlistID + " does not exist.");
                     return;
                 }
             }
@@ -76,7 +81,7 @@ public class Playlist {
             checkMusicStmt.setInt(1, musicID);
             try (ResultSet rs = checkMusicStmt.executeQuery()) {
                 if (rs.next() && rs.getInt(1) == 0) {
-                    System.out.println("Error: Music with ID " + musicID + " does not exist.");
+                    System.out.println("Error: database.Music with ID " + musicID + " does not exist.");
                     return;
                 }
             }
@@ -86,7 +91,7 @@ public class Playlist {
             checkDuplicateStmt.setInt(2, musicID);
             try (ResultSet rs = checkDuplicateStmt.executeQuery()) {
                 if (rs.next() && rs.getInt(1) > 0) {
-                    System.out.println("Error: Music with ID " + musicID + " is already in Playlist " + playlistID);
+                    System.out.println("Error: database.Music with ID " + musicID + " is already in database.Playlist " + playlistID);
                     return;
                 }
             }
@@ -98,9 +103,9 @@ public class Playlist {
 
             int rowsAffected = insertStmt.executeUpdate();
             if (rowsAffected > 0) {
-                System.out.println("Music with ID " + musicID + " successfully added to Playlist " + playlistID);
+                System.out.println("database.Music with ID " + musicID + " successfully added to database.Playlist " + playlistID);
             } else {
-                System.out.println("Failed to add Music to Playlist.");
+                System.out.println("Failed to add database.Music to database.Playlist.");
             }
 
         } catch (SQLException e) {
@@ -122,7 +127,7 @@ public class Playlist {
             int rowsAffected = deleteStmt.executeUpdate();
 
             if (rowsAffected > 0) {
-                System.out.println("Music successfully deleted from playlist.");
+                System.out.println("database.Music successfully deleted from playlist.");
             } else {
                 System.out.println("No matching entry found to delete. Please check the PlaylistID and MusicID.");
             }

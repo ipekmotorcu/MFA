@@ -8,6 +8,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.List;
+
+import database.DBConnection;
 import database.Listener; // Import database.Listener class
 
 public class ListenerView extends JFrame {
@@ -30,7 +32,7 @@ public class ListenerView extends JFrame {
         listener = new Listener(connection, userid);
 
         // Frame setup
-        setTitle("database.Listener Dashboard");
+        setTitle("Listener Dashboard");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(800, 600);
 
@@ -52,7 +54,7 @@ public class ListenerView extends JFrame {
 
     private void connectToDatabase() {
         try {
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/mfa", "root", "im66709903");
+            connection =  DBConnection.getConnection();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(this, "Database connection failed: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             System.exit(1);
@@ -361,7 +363,7 @@ public class ListenerView extends JFrame {
             for (String song : songs) {
                 songsInPlaylistModel.addElement(song);
             }
-            // Switch to the Playlist Detail panel
+            // Switch to the database.Playlist Detail panel
             cardLayout.show(mainPanel, "PlaylistDetail");
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, "Error fetching songs: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);

@@ -1,3 +1,10 @@
+package database;
+
+import database.Album;
+import database.Artist;
+import database.Category;
+import database.DBConnection;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;

@@ -1,5 +1,7 @@
 package GUI;
 
+import database.DBConnection;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -29,7 +31,7 @@ public class LoginView extends JFrame {
         titleLabel.setBounds(20, 20, 360, 30); // Adjust bounds for centering
         loginPanel.add(titleLabel);
 
-        // User label and text field
+        // database.User label and text field
         userLabel = new JLabel("User Name");
         userLabel.setBounds(20, 80, 80, 25);
         loginPanel.add(userLabel);
@@ -70,7 +72,7 @@ public class LoginView extends JFrame {
     // Connect to the database
     private void connectToDatabase() {
         try {
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/mfa", "root", "im66709903");
+            connection = DBConnection.getConnection();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(this, "Database connection failed: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             System.exit(1);
@@ -114,13 +116,13 @@ public class LoginView extends JFrame {
 
         switch (role.toLowerCase()) {
             case "admin":
-                //new AdminView(userId); /
+                new AdminView(userId);
                 break;
             case "listener":
                 new ListenerView(userId); // Open ListenerView for listeners
                 break;
             case "artist":
-               // new ArtistView(userId); //
+                new ArtistView(userId); //
                 break;
             default:
                 JOptionPane.showMessageDialog(this, "Unknown role: " + role, "Error", JOptionPane.ERROR_MESSAGE);

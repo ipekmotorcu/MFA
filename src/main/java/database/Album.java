@@ -1,3 +1,5 @@
+package database;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -84,7 +86,7 @@ public class Album {
             updateStmt.setInt(1, albumId);
             updateStmt.executeUpdate();
 
-            System.out.println("Music added to album successfully.");
+            System.out.println("database.Music added to album successfully.");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -114,7 +116,7 @@ public class Album {
             deleteStmt.setInt(2, albumID);
             int rowsDeleted = deleteStmt.executeUpdate();
             if (rowsDeleted > 0) {
-                System.out.println("Music with ID " + musicID + " successfully deleted from album ID " + albumID);
+                System.out.println("database.Music with ID " + musicID + " successfully deleted from album ID " + albumID);
 
                 // Update TracksCount in ALBUM table
                 updateStmt.setInt(1, albumID);

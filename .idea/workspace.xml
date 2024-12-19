@@ -4,10 +4,26 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7f6ccafc-9584-455e-b7c1-612e6dd6ad77" name="Changes" comment="Updated ListenerView and Listener now it is working">
+    <list default="true" id="7f6ccafc-9584-455e-b7c1-612e6dd6ad77" name="Changes" comment="Updated DML and Listener">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/DBConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DBConnection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MFA_DML.sql" beforeDir="false" afterPath="$PROJECT_DIR$/MFA_DML.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Admin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/Admin.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/AdminView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/AdminView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Album.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/Album.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Artist.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/Artist.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Category.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/Category.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/DBConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/DBConnection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/DatabaseTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/DatabaseTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/ArtistView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/ArtistView.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/GUI/ListenerView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/ListenerView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/LoginView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/LoginView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/LittleListener.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Music.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/Music.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/MusicManageable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/MusicManageable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/PlayListManageable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/PlayListManageable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Playlist.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/Playlist.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/DatabaseTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/DatabaseTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,7 +75,7 @@
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
-  <component name="RunManager" selected="Application.ListenerView">
+  <component name="RunManager" selected="Application.LoginView">
     <configuration name="AdminView" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="GUI.AdminView" />
       <module name="MFA" />
@@ -69,6 +85,13 @@
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="AdminView" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="GUI.AdminView" />
+      <module name="MFA" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -108,9 +131,10 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.ListenerView" />
         <item itemvalue="Application.LoginView" />
         <item itemvalue="Application.AdminView" />
+        <item itemvalue="Application.AdminView (1)" />
+        <item itemvalue="Application.ListenerView" />
         <item itemvalue="Application.DatabaseTest" />
       </list>
     </recent_temporary>
@@ -126,6 +150,8 @@
       <workItem from="1733554477905" duration="3189000" />
       <workItem from="1733664329541" duration="2108000" />
       <workItem from="1734198665322" duration="607000" />
+      <workItem from="1734601111304" duration="17000" />
+      <workItem from="1734615797808" duration="3719000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <created>1733555747767</created>
@@ -162,17 +188,36 @@
       <option name="project" value="LOCAL" />
       <updated>1734381335084</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Updated DML and Listener">
+      <created>1734600176839</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1734600176839</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Initial commit" />
     <MESSAGE value="Database'e bağlandı bazı queryler yazıldı" />
     <MESSAGE value="Connected to the database using the DBConnection class and implemented queries for Listener, Artist, and User" />
     <MESSAGE value="Updated ListenerView and Listener now it is working" />
-    <option name="LAST_COMMIT_MESSAGE" value="Updated ListenerView and Listener now it is working" />
+    <MESSAGE value="Updated DML and Listener" />
+    <option name="LAST_COMMIT_MESSAGE" value="Updated DML and Listener" />
   </component>
 </project>

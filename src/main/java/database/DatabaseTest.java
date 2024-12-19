@@ -1,10 +1,14 @@
+package database;
+
+import database.*;
+
 import java.time.LocalDate;
 
 public class DatabaseTest {
 
         public static void main(String[] args) {
-            Admin admin = new Admin(1, "Admin1");
-            Artist artist=new Artist(1,"Artist1",21);
+            //Admin admin = new Admin(1, "Admin1");
+            //Artist artist=new Artist(1,"Artist1",21);
             // Test createMusic(çalışıyor)
            //admin.createMusic("Song1", 1, 3.5, "Pop", false);
 
@@ -15,7 +19,7 @@ public class DatabaseTest {
             //admin.viewStatistics();
 
             // Test createListener(çalışıyor)
-           admin.createListener("NewListener", "123",18);
+           //admin.createListener("NewListener", "123",18);
 
             // Test deleteUser(çalışıyor)
             //admin.deleteUser(8);
@@ -39,8 +43,8 @@ public class DatabaseTest {
             //listener.searchMusic("Song Two");
             //artist.viewStatistics();
 
-            Category category=new Category("pop");
-            Album album = new Album(1, "My Album");
+           /* Category category=new Category("pop");
+            Album album = new Album(1, "My database.Album");
             Music newMusic = new Music("x", 2, album, artist, category, false);
 
             album.addMusicToAlbum(1,"şerbetli",3,false,5,LocalDate.of(2022, 01, 01));
@@ -51,7 +55,7 @@ public class DatabaseTest {
 
             playlist.deleteMusicFromPlaylist(1, 3 );
 
-            newMusic.reactToMusic(1, 2, "like");
+            newMusic.reactToMusic(1, 2, "like");*/
         }
     }
 

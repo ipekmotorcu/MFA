@@ -1,7 +1,4 @@
--- Insert data into ADMIN table
-INSERT INTO ADMIN (AdminName, AdminPassword) VALUES
-                                                 ('Admin1', 'password123'),
-                                                 ('Admin2', 'securepass456');
+
 
 -- Insert data into USER table
 INSERT INTO USER (Username, Password, DateOfBirth, Age, UserType, IsBanned) VALUES
@@ -9,8 +6,13 @@ INSERT INTO USER (Username, Password, DateOfBirth, Age, UserType, IsBanned) VALU
                                                                                 ('listener2', 'pass456', '1995-07-20', 28, 'Listener', FALSE),
                                                                                 ('artist1', 'pass789', '1985-03-10', 38, 'Artist', FALSE),
                                                                                 ('artist2', 'pass012', '1992-08-25', 31, 'Artist', FALSE),
-                                                                                ('bannedUser', 'ban123', '1990-01-01', 34, 'Listener', TRUE);
-
+                                                                                ('bannedUser', 'ban123', '1990-01-01', 34, 'Listener', TRUE),
+                                                                                ('admin1', 'password123', '1980-01-01', 44, 'Admin', FALSE),
+                                                                                ('admin2', 'securepass456', '1982-02-02', 42, 'Admin', FALSE);
+-- Insert data into ADMIN table
+INSERT INTO ADMIN (UserID, AdminName, AdminPassword) VALUES
+                                                         (6, 'Admin1', 'password123'),
+                                                         (7, 'Admin2', 'securepass456');
 -- Insert data into LISTENER table
 INSERT INTO LISTENER (UserID, TopPlayTime) VALUES
                                                (1, 120),
@@ -33,8 +35,8 @@ INSERT INTO FOLLOWERS (UserID, ArtistID) VALUES
 
 -- Insert data into ALBUM table
 INSERT INTO ALBUM (AlbumID, ArtistID, AlbumName, ReleaseDate, TracksCount) VALUES
-                                                                               (1,3, 'Pop Hits', '2022-01-01', 10),
-                                                                               (2,4, 'Rock Anthems', '2023-05-15', 8);
+                                                                               (1, 3, 'Pop Hits', '2022-01-01', 10),
+                                                                               (2, 4, 'Rock Anthems', '2023-05-15', 8);
 
 -- Insert data into CATEGORY table
 INSERT INTO CATEGORY (CategoryName) VALUES
@@ -44,11 +46,11 @@ INSERT INTO CATEGORY (CategoryName) VALUES
                                         ('Jazz');
 
 -- Insert data into MUSIC table
-INSERT INTO MUSIC (MusicID,Name, AlbumID, CategoryID, Explicit, PlayCount, ReleaseDate) VALUES
-                                                                                            (1,'Song One', 1, 1, FALSE, 500, '2022-01-01'),
-                                                                                            (2,'Song Two', 1, 1, TRUE, 300, '2022-02-01'),
-                                                                                            (3,'Rock Ballad', 2, 2, FALSE, 400, '2023-05-15'),
-                                                                                            (4,'Rock Anthem', 2, 2, TRUE, 250, '2023-06-01');
+INSERT INTO MUSIC (MusicID, Name, AlbumID, CategoryID, Explicit, PlayCount, ReleaseDate) VALUES
+                                                                                             (1, 'Song One', 1, 1, FALSE, 500, '2022-01-01'),
+                                                                                             (2, 'Song Two', 1, 1, TRUE, 300, '2022-02-01'),
+                                                                                             (3, 'Rock Ballad', 2, 2, FALSE, 400, '2023-05-15'),
+                                                                                             (4, 'Rock Anthem', 2, 2, TRUE, 250, '2023-06-01');
 
 -- Insert data into REACTIONS table
 INSERT INTO REACTIONS (UserID, MusicID, ReactionType) VALUES
@@ -66,13 +68,33 @@ INSERT INTO PLAYLIST (ListenerID, PlaylistName, CreationDate, IsPublic) VALUES
 INSERT INTO PLAYLIST_MUSIC (PlaylistID, MusicID, DateAdded) VALUES
                                                                 (1, 1, '2023-10-01'),
                                                                 (1, 2, '2023-10-02'),
-                                                                (2, 3, '2023-10-15');
--- (2, 4, '2023-10-16');
+                                                                (2, 3, '2023-10-15'),
+                                                                (2, 4, '2023-10-16');
+
+-- Retrieve all music
 SELECT * FROM MUSIC;
-SELECT * FROM User;
-SELECT * FROM listener;
-SELECT * FROM playlist;
-SELECT * FROM playlist_music;
-select * from reactions;
 
+-- Retrieve all users
+SELECT * FROM USER;
 
+-- Retrieve all listeners
+SELECT * FROM LISTENER;
+
+-- Retrieve all playlists
+SELECT * FROM PLAYLIST;
+
+-- Retrieve all playlist music entries
+SELECT * FROM PLAYLIST_MUSIC;
+
+-- Retrieve all reactions
+SELECT * FROM REACTIONS;
+
+-- Retrieve liked music by a specific user
+SELECT DISTINCT m.Name
+FROM MUSIC m
+         JOIN REACTIONS r ON m.MusicID = r.MusicID
+WHERE r.UserID = 1 AND r.ReactionType = 'Like';
+
+-- Delete reactions for a specific user
+DELETE FROM REACTIONS
+WHERE UserID = 1;
