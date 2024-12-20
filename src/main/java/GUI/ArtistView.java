@@ -280,13 +280,47 @@ import java.sql.SQLException;
 
         private void showViewStatisticsDialog() {
             String albumName = JOptionPane.showInputDialog(this, "Enter album name:");
+
             if (albumName != null && !albumName.trim().isEmpty()) {
                 try {
-                    artist.viewStatistics(albumName);
+                    ResultSet stats = artist.viewStatistics(albumName);
+
+                    if (stats.next()) {
+                        int trackCount = stats.getInt("TrackCount");
+                        int totalPlays = stats.getInt("TotalPlays");
+
+                        // Create a formatted message
+                        String message = String.format("""
+                    Statistics for album '%s':
+                    
+                    Number of Tracks: %d
+                    Total Plays: %d
+                    Average Plays per Track: %.2f""",
+                                albumName,
+                                trackCount,
+                                totalPlays,
+                                totalPlays / (double) trackCount
+                        );
+
+                        // Show results in a dialog
+                        JOptionPane.showMessageDialog(this,
+                                message,
+                                "Album Statistics",
+                                JOptionPane.INFORMATION_MESSAGE);
+                    } else {
+                        JOptionPane.showMessageDialog(this,
+                                "No statistics found for album: " + albumName,
+                                "No Data",
+                                JOptionPane.WARNING_MESSAGE);
+                    }
+
+                    stats.close();
+
                 } catch (SQLException ex) {
                     JOptionPane.showMessageDialog(this,
                             "Error viewing statistics: " + ex.getMessage(),
-                            "Error", JOptionPane.ERROR_MESSAGE);
+                            "Error",
+                            JOptionPane.ERROR_MESSAGE);
                 }
             }
         }

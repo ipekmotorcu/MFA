@@ -47,16 +47,34 @@ public class Artist  {
 
     // Method to remove music from an album
     public void removeMusic(String music) throws SQLException {
-        String query = "DELETE FROM MUSIC WHERE MusicID=? ;";
+        String getMusicIdQuery = "SELECT MusicID, AlbumID FROM MUSIC WHERE Name = ?;";
+        String deleteMusicQuery = "DELETE FROM MUSIC WHERE MusicID = ?;";
         String updateTrackCountQuery = "UPDATE ALBUM SET TracksCount = TracksCount - 1 WHERE AlbumID = ?;";
 
-        PreparedStatement statement = connection.prepareStatement(query);
-        statement.setInt(1, getMusicIdByName(music));
-        statement.executeUpdate();
+        int musicId = -1;
+        int albumId = -1;
 
+        // Retrieve MusicID and AlbumID before deleting
+        PreparedStatement getMusicIdStatement = connection.prepareStatement(getMusicIdQuery);
+        getMusicIdStatement.setString(1, music);
+        ResultSet resultSet = getMusicIdStatement.executeQuery();
+        if (resultSet.next()) {
+            musicId = resultSet.getInt("MusicID");
+            albumId = resultSet.getInt("AlbumID");
+        } else {
+            throw new SQLException("Music not found: " + music);
+        }
+
+        // Delete the music
+        PreparedStatement deleteMusicStatement = connection.prepareStatement(deleteMusicQuery);
+        deleteMusicStatement.setInt(1, musicId);
+        deleteMusicStatement.executeUpdate();
+
+        // Update TracksCount
         PreparedStatement updateTrackCountStatement = connection.prepareStatement(updateTrackCountQuery);
-        updateTrackCountStatement.setInt(1, getAlbumIdByMusicName(music));
+        updateTrackCountStatement.setInt(1, albumId);
         updateTrackCountStatement.executeUpdate();
+
         //needs to update track count in album
     }
 
@@ -83,11 +101,14 @@ public class Artist  {
         return albums;
     }
 
-    public void viewStatistics(String albumName) throws SQLException {
+    public ResultSet viewStatistics(String albumName) throws SQLException {
         //it will be added
-
-
-   }
+        String query = "SELECT COUNT(DISTINCT MusicID) AS TrackCount, SUM(PlayCount) AS TotalPlays " +
+                "FROM MUSIC m WHERE m.AlbumID = ?";
+        PreparedStatement statement = connection.prepareStatement(query);
+        statement.setInt(1, getAlbumIdByName(albumName));
+        return statement.executeQuery();
+    }
 
     public void createMusic(String musicName, int albumId, double duration, String category, boolean explicit) {
         String query = "INSERT INTO MUSIC (Name, AlbumID, CategoryID, Explicit, PlayCount, ReleaseDate) " +
@@ -187,19 +208,9 @@ public class Artist  {
                 return resultSet.getInt("MusicID");
             }
         }
-        return -1; // Return -1 if the song is not found
+        return -1;
     }
 
-    private int getAlbumIdByMusicName(String musicName) throws SQLException {
-        String query = "SELECT AlbumID FROM MUSIC WHERE Name = ?;";
-        PreparedStatement statement = connection.prepareStatement(query);
-        statement.setString(1, musicName);
-        ResultSet resultSet = statement.executeQuery();
-        if (resultSet.next()) {
-            return resultSet.getInt("AlbumID");
-        }
-        throw new SQLException("Music not found: " + musicName);
-    }
 
 
 }
