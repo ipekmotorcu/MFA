@@ -6,47 +6,89 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class Artist extends User {
+public class Artist  {
     private ArrayList<String> arrAlbum;
-    public Artist(int userId, String username, int age) {
-        super(userId, username, age);
+    private int userId;
+    private Connection connection;
+
+    public Artist(Connection connection, int userId) {
+        this.connection = connection;
+        this.userId = userId;
         this.arrAlbum = new ArrayList<>();
     }
 
-    // Method to create a playlist (stub for now, can be expanded)
-    public void createPlaylist() {
-        System.out.println("database.Artist " + getUsername() + " created a new playlist.");
+    public void createAlbum(String albumName) throws SQLException {
+        String query = "INSERT INTO ALBUM (ArtistID, AlbumName, ReleaseDate, TracksCount)\n" +
+                "VALUES(?, ?, CURRENT_DATE, 0);";
+        PreparedStatement statement = connection.prepareStatement(query);
+        statement.setInt(1, userId);
+        statement.setString(2, albumName);
+        statement.executeUpdate();
     }
 
-    // Method to add music to an album
-    public void addMusic(String albumName, String music) {
-        if (arrAlbum.contains(albumName)) {
-            System.out.println("database.Artist " + getUsername() + " added music \"" + music + "\" to album \"" + albumName + "\".");
-            // Logic for adding the song to the album
-        } else {
-            System.out.println("database.Album \"" + albumName + "\" not found for artist " + getUsername() + ".");
-        }
+
+    // Method to add music to an album, explicit label in default 0
+    public void addMusic(String musicName, String albumName, String categoryName) throws SQLException {
+        String query = "INSERT INTO MUSIC\n" +
+                "( Name, AlbumID, CategoryID, Explicit, PlayCount, ReleaseDate)\n" +
+                "VALUES(?, ?, ?, 0, 0, CURRENT_DATE);";
+        String updateTrackCountQuery = "UPDATE ALBUM SET TracksCount = TracksCount + 1 WHERE AlbumID = ?;";
+
+        PreparedStatement statement = connection.prepareStatement(query);
+        statement.setString(1, musicName);
+        statement.setInt(2, getAlbumIdByName(albumName));
+        statement.setInt(3, getCategoryIdByName(categoryName));
+        statement.executeUpdate();
+
+        PreparedStatement updateTrackCountStatement = connection.prepareStatement(updateTrackCountQuery);
+        updateTrackCountStatement.setInt(1, getAlbumIdByName(albumName));
+        updateTrackCountStatement.executeUpdate();
     }
 
     // Method to remove music from an album
-    public void removeMusic(String albumName, String music) {
-        if (arrAlbum.contains(albumName)) {
-            System.out.println("database.Artist " + getUsername() + " removed music \"" + music + "\" from album \"" + albumName + "\".");
-            // Logic for removing the song from the album
-        } else {
-            System.out.println("database.Album \"" + albumName + "\" not found for artist " + getUsername() + ".");
-        }
+    public void removeMusic(String music) throws SQLException {
+        String query = "DELETE FROM MUSIC WHERE MusicID=? ;";
+        String updateTrackCountQuery = "UPDATE ALBUM SET TracksCount = TracksCount - 1 WHERE AlbumID = ?;";
+
+        PreparedStatement statement = connection.prepareStatement(query);
+        statement.setInt(1, getMusicIdByName(music));
+        statement.executeUpdate();
+
+        PreparedStatement updateTrackCountStatement = connection.prepareStatement(updateTrackCountQuery);
+        updateTrackCountStatement.setInt(1, getAlbumIdByMusicName(music));
+        updateTrackCountStatement.executeUpdate();
+        //needs to update track count in album
     }
 
-    // Method to create a new album
-    public void createMusic(String albumName) {
-        if (!arrAlbum.contains(albumName)) {
-            arrAlbum.add(albumName);
-            System.out.println("database.Artist " + getUsername() + " created a new album: \"" + albumName + "\".");
-        } else {
-            System.out.println("database.Album \"" + albumName + "\" already exists for artist " + getUsername() + ".");
-        }
+    public ResultSet getSongsInAlbum(String albumName) throws SQLException {
+        String query = "SELECT m.MusicID, m.Name, c.CategoryName, m.PlayCount, m.ReleaseDate " +
+                "FROM MUSIC m " +
+                "JOIN CATEGORY c ON m.CategoryID = c.CategoryID " +
+                "WHERE m.AlbumID = (SELECT AlbumID FROM ALBUM WHERE AlbumName = ? AND ArtistID = ?)";
+        PreparedStatement statement = connection.prepareStatement(query);
+        statement.setString(1, albumName);
+        statement.setInt(2, userId);
+        return statement.executeQuery();
     }
+
+    public ArrayList<String> getAlbums() throws SQLException {
+        String query = "SELECT a.AlbumName FROM ALBUM a WHERE a.ArtistID= ?;";
+        PreparedStatement statement = connection.prepareStatement(query);
+        statement.setInt(1, userId);
+        ResultSet resultSet = statement.executeQuery();
+        ArrayList<String> albums = new ArrayList<>();
+        while (resultSet.next()) {
+            albums.add(resultSet.getString("AlbumName"));
+        }
+        return albums;
+    }
+
+    public void viewStatistics(String albumName) throws SQLException {
+        //it will be added
+
+
+   }
+
     public void createMusic(String musicName, int albumId, double duration, String category, boolean explicit) {
         String query = "INSERT INTO MUSIC (Name, AlbumID, CategoryID, Explicit, PlayCount, ReleaseDate) " +
                 "VALUES (?, ?, (SELECT CategoryID FROM CATEGORY WHERE CategoryName = ?), ?, 0, CURDATE())";
@@ -64,15 +106,7 @@ public class Artist extends User {
         }
     }
 
-    // Method to delete an album
-    public void deleteMusic(String albumName) {
-        if (arrAlbum.contains(albumName)) {
-            arrAlbum.remove(albumName);
-            System.out.println("database.Artist " + getUsername() + " deleted the album: \"" + albumName + "\".");
-        } else {
-            System.out.println("database.Album \"" + albumName + "\" not found for artist " + getUsername() + ".");
-        }
-    }
+
     public void deleteMusic(int musicId) {
         String query = "DELETE FROM MUSIC WHERE MusicID = ?";
 
@@ -91,11 +125,7 @@ public class Artist extends User {
     }
 
     // Method to view artist's album statistics
-   /* public void viewStatistics() {
-        System.out.println("Statistics for database.Artist: " + getUsername());
-        System.out.println("Number of albums: " + arrAlbum.size());
-        System.out.println("Albums: " + arrAlbum);
-    }*/
+   /*
     //ben bunu şimdilik yazdım bu geliştirilebilir
     public void viewStatistics() {
         String query = "SELECT AlbumName, ReleaseDate FROM ALBUM WHERE ArtistID = ?";
@@ -120,6 +150,56 @@ public class Artist extends User {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }*/
+
+    public int getAlbumIdByName(String albumName) throws SQLException {
+        String query = "SELECT AlbumID  FROM ALBUM WHERE AlbumName = ?";
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setString(1, albumName);
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                return resultSet.getInt("AlbumID");
+            }
+        }
+        return -1;
     }
+    public int getCategoryIdByName(String categoryName) throws SQLException {
+        String query = "SELECT CategoryID  FROM CATEGORY WHERE CategoryName = ?";
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setString(1, categoryName);
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                return resultSet.getInt("CategoryID");
+            }
+        }
+        return -1;
+    }
+
+    public int getMusicIdByName(String songName) throws SQLException {
+        String query = "SELECT MusicID FROM MUSIC WHERE Name = ?";
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setString(1, songName);
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                return resultSet.getInt("MusicID");
+            }
+        }
+        return -1; // Return -1 if the song is not found
+    }
+
+    private int getAlbumIdByMusicName(String musicName) throws SQLException {
+        String query = "SELECT AlbumID FROM MUSIC WHERE Name = ?;";
+        PreparedStatement statement = connection.prepareStatement(query);
+        statement.setString(1, musicName);
+        ResultSet resultSet = statement.executeQuery();
+        if (resultSet.next()) {
+            return resultSet.getInt("AlbumID");
+        }
+        throw new SQLException("Music not found: " + musicName);
+    }
+
 
 }

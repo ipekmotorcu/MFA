@@ -5,8 +5,8 @@ import database.Artist;
 public class DatabaseTest {
 
         public static void main(String[] args) {
-            Admin admin = new Admin(1, "Admin1");
-            Artist artist=new Artist(1,"Artist1",21);
+            //Admin admin = new Admin(1, "Admin1");
+           // Artist artist=new Artist(1,"Artist1",21);
             // Test createMusic(çalışıyor)
            // admin.createMusic("Song1", 1, 3.5, "Pop", false);
 
@@ -39,7 +39,7 @@ public class DatabaseTest {
 
             // Search for music by name
             //listener.searchMusic("Song Two");
-            artist.viewStatistics();
+            //artist.viewStatistics();
 
             Album album = new Album(1, "My database.Album");
             //database.Music newMusic = new database.Music("New Song", false, 0, LocalDate.now());

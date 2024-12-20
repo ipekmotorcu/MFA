@@ -10,7 +10,7 @@ public class DatabaseTest {
             //Admin admin = new Admin(1, "Admin1");
             //Artist artist=new Artist(1,"Artist1",21);
             // Test createMusic(çalışıyor)
-           //admin.createMusic("Song1", 1, 3.5, "Pop", false);
+           //artist.createMusic("Song1", 1, 3.5, "Pop", false);
 
             // Test deleteMusic(çalışıyor)
             //admin.deleteMusic(6);
