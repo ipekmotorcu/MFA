@@ -103,11 +103,12 @@ public class Artist  {
 
     public ResultSet viewStatistics(String albumName) throws SQLException {
         //it will be added
-        String query = "SELECT COUNT(DISTINCT MusicID) AS TrackCount, SUM(PlayCount) AS TotalPlays " +
-                "FROM MUSIC m WHERE m.AlbumID = ?";
-        PreparedStatement statement = connection.prepareStatement(query);
+       String query = "SELECT COUNT(DISTINCT MusicID) AS TrackCount, SUM(PlayCount) AS TotalPlays " +
+               "FROM MUSIC m WHERE m.AlbumID = ?";
+       PreparedStatement statement = connection.prepareStatement(query);
         statement.setInt(1, getAlbumIdByName(albumName));
         return statement.executeQuery();
+
     }
 
     public void createMusic(String musicName, int albumId, double duration, String category, boolean explicit) {
@@ -127,22 +128,59 @@ public class Artist  {
         }
     }
 
-
-    public void deleteMusic(int musicId) {
-        String query = "DELETE FROM MUSIC WHERE MusicID = ?";
-
-        try (Connection conn = DBConnection.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(query)) {
-            stmt.setInt(1, musicId);
-            int rowsAffected = stmt.executeUpdate();
-            if (rowsAffected > 0) {
-                System.out.println("Music deleted successfully.");
-            } else {
-                System.out.println("Music not found.");
+    public int getLikeByMusicId(int musicId) throws SQLException {
+        String query = "SELECT COUNT(ReactionType) AS likeCount FROM REACTIONS   WHERE MusicID=?  AND ReactionType='like';";
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setInt(1, musicId);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                return resultSet.getInt("likeCount");
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
+        return -1;
+    }
+    public int getDislikeByMusicID(int musicId) throws SQLException {
+        String query = "SELECT COUNT(r.ReactionType) AS dislikeCount FROM REACTIONS r  WHERE r.MusicID=?  AND r.ReactionType='dislike';";
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setInt(1, musicId);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                return resultSet.getInt("dislikeCount");
+            }
+        }
+        return -1;
+    }
+    public int getTotalLikeByAlbumID(int albumId) throws SQLException {
+        String query = "SELECT COUNT(r.ReactionType) AS likeCount " +
+                "FROM reactions r " +
+                "JOIN music m ON r.MusicID = m.MusicID " +
+                "WHERE m.AlbumID = ? " +
+                "AND r.ReactionType = 'like';";
+
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setInt(1, albumId);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                return resultSet.getInt("likeCount");
+            }
+        }
+        return -1;
+    }
+    public int getTotalDisikeByAlbumID(int albumId) throws SQLException {
+        String query = "SELECT COUNT(r.ReactionType) AS dislikeCount " +
+                "FROM reactions r " +
+                "JOIN music m ON r.MusicID = m.MusicID " +
+                "WHERE m.AlbumID = ? " +
+                "AND r.ReactionType = 'dislike';";
+
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setInt(1, albumId);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                return resultSet.getInt("dislikeCount");
+            }
+        }
+        return -1;
     }
 
     // Method to view artist's album statistics
@@ -197,20 +235,6 @@ public class Artist  {
         }
         return -1;
     }
-
-    public int getMusicIdByName(String songName) throws SQLException {
-        String query = "SELECT MusicID FROM MUSIC WHERE Name = ?";
-        try (PreparedStatement statement = connection.prepareStatement(query)) {
-            statement.setString(1, songName);
-            ResultSet resultSet = statement.executeQuery();
-
-            if (resultSet.next()) {
-                return resultSet.getInt("MusicID");
-            }
-        }
-        return -1;
-    }
-
 
 
 }

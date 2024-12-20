@@ -137,7 +137,7 @@ import java.sql.SQLException;
             return panel;
         }
         private void createSongTable() {
-            String[] columnNames = {"Music ID", "Title", "Album", "Category", "Play Count", "Release Date"};
+            String[] columnNames = { "Title", "Album", "Category", "Play Count", "Release Date", "Total Likes", "Total Dislikes"};
             songTableModel = new DefaultTableModel(columnNames, 0) {
                 @Override
                 public boolean isCellEditable(int row, int column) {
@@ -284,6 +284,8 @@ import java.sql.SQLException;
             if (albumName != null && !albumName.trim().isEmpty()) {
                 try {
                     ResultSet stats = artist.viewStatistics(albumName);
+                    int totalLikes= artist.getTotalLikeByAlbumID(artist.getAlbumIdByName(albumName));
+                    int totalDislikes= artist.getTotalDisikeByAlbumID(artist.getAlbumIdByName(albumName));
 
                     if (stats.next()) {
                         int trackCount = stats.getInt("TrackCount");
@@ -295,10 +297,14 @@ import java.sql.SQLException;
                     
                     Number of Tracks: %d
                     Total Plays: %d
+                    Total Likes: %d
+                    Total Dislikes: %d
                     Average Plays per Track: %.2f""",
                                 albumName,
                                 trackCount,
                                 totalPlays,
+                                totalLikes,
+                                totalDislikes,
                                 totalPlays / (double) trackCount
                         );
 
@@ -372,13 +378,18 @@ import java.sql.SQLException;
                 // You'll need to add this method to your Artist class
                 ResultSet songs = artist.getSongsInAlbum(albumName);
                 while (songs.next()) {
+                    int musicId = songs.getInt("MusicID");
+                    int likes = artist.getLikeByMusicId(musicId);
+                    int dislikes = artist.getDislikeByMusicID(musicId);
+
                     songTableModel.addRow(new Object[]{
-                            songs.getInt("MusicID"),
                             songs.getString("Name"),
                             albumName,
                             songs.getString("CategoryName"),
                             songs.getInt("PlayCount"),
-                            songs.getDate("ReleaseDate")
+                            songs.getDate("ReleaseDate"),
+                            likes >= 0 ? likes : 0,  // Default to 0 if no likes found
+                            dislikes >= 0 ? dislikes : 0  // Default to 0 if no dislikes found
                     });
                 }
             } catch (SQLException ex) {
