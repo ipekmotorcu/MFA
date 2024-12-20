@@ -5,25 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7f6ccafc-9584-455e-b7c1-612e6dd6ad77" name="Changes" comment="Updated DML and Listener">
+      <change afterPath="$PROJECT_DIR$/.idea/qaplug_profiles.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_13_12_2024_20_56__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_13_12_2024_20_56__Changes_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_16_12_2024_10_25__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_16_12_2024_10_25__Changes_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_19_12_2024_12_09__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_19_12_2024_12_09__Changes_.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MFA_DML.sql" beforeDir="false" afterPath="$PROJECT_DIR$/MFA_DML.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Admin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/Admin.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/AdminView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/AdminView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Album.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/Album.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Artist.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/Artist.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Category.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/Category.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/DBConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/DBConnection.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/DatabaseTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/DatabaseTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/ArtistView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/ArtistView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/ListenerView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/ListenerView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/GUI/LoginView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUI/LoginView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/LittleListener.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Music.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/Music.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/MusicManageable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/MusicManageable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/PlayListManageable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/PlayListManageable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Playlist.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/Playlist.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/DatabaseTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/DatabaseTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/database/DBConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/database/DBConnection.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,13 +33,6 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="MavenImportPreferences">
-    <option name="importingSettings">
-      <MavenImportingSettings>
-        <option name="workspaceImportEnabled" value="true" />
-      </MavenImportingSettings>
-    </option>
-  </component>
   <component name="ProjectId" id="2psUrKTedr6t1SNfojDNAnrJTzn" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
@@ -59,6 +41,10 @@
   </component>
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
+    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
@@ -72,10 +58,11 @@
     &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
-  <component name="RunManager" selected="Application.LoginView">
+  <component name="RunManager">
     <configuration name="AdminView" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="GUI.AdminView" />
       <module name="MFA" />
@@ -133,7 +120,6 @@
       <list>
         <item itemvalue="Application.LoginView" />
         <item itemvalue="Application.AdminView" />
-        <item itemvalue="Application.AdminView (1)" />
         <item itemvalue="Application.ListenerView" />
         <item itemvalue="Application.DatabaseTest" />
       </list>
@@ -152,6 +138,9 @@
       <workItem from="1734198665322" duration="607000" />
       <workItem from="1734601111304" duration="17000" />
       <workItem from="1734615797808" duration="3719000" />
+      <workItem from="1734620652061" duration="6533000" />
+      <workItem from="1734681404165" duration="259000" />
+      <workItem from="1734681673329" duration="2497000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <created>1733555747767</created>

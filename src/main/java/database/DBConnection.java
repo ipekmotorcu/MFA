@@ -6,7 +6,7 @@ import java.util.Properties;
 public class DBConnection {
     static final String url = "jdbc:mysql://localhost:3306/mfa";
     static final String user = "root";
-    static final String password = "im66709903";
+    static final String password = "bassak";
 
 
 
