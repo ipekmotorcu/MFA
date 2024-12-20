@@ -270,7 +270,8 @@ import java.sql.SQLException;
                     artist.createAlbum(albumName);
                     refreshDashboard();
                     JOptionPane.showMessageDialog(this, "Album created successfully!");
-                } catch (SQLException ex) {
+                }
+                catch (SQLException ex) {
                     JOptionPane.showMessageDialog(this,
                             "Error creating album: " + ex.getMessage(),
                             "Error", JOptionPane.ERROR_MESSAGE);

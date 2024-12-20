@@ -148,7 +148,7 @@ public class Artist  {
                 return resultSet.getInt("dislikeCount");
             }
         }
-        return -1;
+         return -1;
     }
     public int getTotalLikeByAlbumID(int albumId) throws SQLException {
         String query = "SELECT COUNT(r.ReactionType) AS likeCount " +
