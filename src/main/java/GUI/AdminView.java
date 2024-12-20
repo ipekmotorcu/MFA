@@ -141,7 +141,7 @@ public class AdminView extends JFrame {
         JScrollPane scrollPane = new JScrollPane(userList);
         panel.add(scrollPane, BorderLayout.CENTER);
 
-        fetchUsersFromDB(userListModel, "");
+        admin.fetchUsersFromDB(userListModel, "");
 
         // Action Panel
         JPanel actionPanel = new JPanel(new FlowLayout());
@@ -172,7 +172,7 @@ public class AdminView extends JFrame {
                 if (confirm == JOptionPane.YES_OPTION) {
                     admin.banUserInDB(userId);
                     JOptionPane.showMessageDialog(this, "User banned successfully.");
-                    fetchUsersFromDB(userListModel,""); // Refresh the list
+                    admin.fetchUsersFromDB(userListModel,""); // Refresh the list
                 }
             } catch (NumberFormatException ex) {
                 JOptionPane.showMessageDialog(this, "Invalid user format.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -185,7 +185,7 @@ public class AdminView extends JFrame {
         // Search Button Action
         searchButton.addActionListener(e -> {
             String searchTerm = searchBar.getText().trim(); // Get search term from the search bar
-            fetchUsersFromDB(userListModel, searchTerm); // Call the method with search term
+            admin.fetchUsersFromDB(userListModel, searchTerm); // Call the method with search term
         });
 
 
@@ -208,7 +208,7 @@ public class AdminView extends JFrame {
         panel.add(statsScrollPane, BorderLayout.CENTER);
 
         // Fetch statistics from DB
-        fetchStatisticsFromDB(statsTextArea);
+        admin.fetchStatisticsFromDB(statsTextArea);
 
         // Action Panel with "Back" button
         JPanel actionPanel = new JPanel(new FlowLayout());
@@ -222,91 +222,6 @@ public class AdminView extends JFrame {
 
         return panel;
     }
-
-    private void fetchUsersFromDB(DefaultListModel<String> userListModel, String searchTerm) {
-        userListModel.clear(); // Clear previous data
-        String query = "SELECT UserID, Username FROM USER WHERE IsBanned = FALSE";
-
-        if (searchTerm != null && !searchTerm.trim().isEmpty()) {
-            query += " AND Username LIKE ?";
-        }
-
-        try (Connection conn = DBConnection.getConnection();
-             PreparedStatement ps = conn.prepareStatement(query)) {
-
-            if (searchTerm != null && !searchTerm.trim().isEmpty()) {
-                ps.setString(1, "%" + searchTerm + "%");  // Using LIKE with wildcards
-            }
-
-            try (ResultSet rs = ps.executeQuery()) {
-                while (rs.next()) {
-                    int userId = rs.getInt("UserID");
-                    String username = rs.getString("Username");
-                    userListModel.addElement(userId + " - " + username);
-                }
-            }
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(this, "Error fetching users from the database: " + e.getMessage(), "Database Error", JOptionPane.ERROR_MESSAGE);
-            e.printStackTrace();
-        }
-    }
-
-
-    private void fetchStatisticsFromDB(JTextArea statsTextArea) {
-        String statsQuery = "SELECT COUNT(*) AS totalUsers FROM USER";
-        String topMusicQuery = "SELECT m.Name, m.PlayCount FROM MUSIC m ORDER BY m.PlayCount DESC LIMIT 10"; // Query for top 10 most listened music
-
-        try (//Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/mfa", "root", "im66709903");
-             Connection conn = DBConnection.getConnection();
-             Statement stmt = conn.createStatement()) {
-
-            // Fetch general statistics
-            try (ResultSet rs = stmt.executeQuery(statsQuery)) {
-                if (rs.next()) {
-                    int totalUsers = rs.getInt("totalUsers");
-                    statsTextArea.setText("Total Users: " + totalUsers + "\n");
-                }
-            }
-
-            // Fetch top 10 most listened music
-            try (ResultSet rs = stmt.executeQuery(topMusicQuery)) {
-                statsTextArea.append("\nTop 10 Most Listened Music:\n");
-                while (rs.next()) {
-                    String musicName = rs.getString("Name");
-                    int playCount = rs.getInt("PlayCount");
-                    statsTextArea.append(musicName + " - Play Count: " + playCount + "\n");
-                }
-            }
-
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(this, "Error fetching statistics from the database: " + e.getMessage(), "Database Error", JOptionPane.ERROR_MESSAGE);
-            e.printStackTrace();
-        }
-    }
-
-
-/*
-    private void banUserInDB(int userId) {
-        String deleteQuery = "DELETE FROM USER WHERE UserID = ?";
-
-        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/mfa?serverTimezone=Europe/Istanbul", "root", "Pinar#18");
-             PreparedStatement ps = conn.prepareStatement(deleteQuery)) {
-
-            ps.setInt(1, userId);
-            int rowsAffected = ps.executeUpdate();
-
-            if (rowsAffected > 0) {
-                System.out.println("database.User deleted successfully.");
-            } else {
-                System.out.println("database.User not found.");
-            }
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(this, "Error deleting user: " + e.getMessage(), "Database Error", JOptionPane.ERROR_MESSAGE);
-            e.printStackTrace();
-        }
-    }
-*/
-
     public static void main(String[] args) {
         Admin admin = new Admin(1, "AdminName"); // Example database.Admin instance
         new AdminView(6);

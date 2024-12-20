@@ -191,7 +191,65 @@ public class Admin {
             e.printStackTrace();
         }
     }
+    public void fetchUsersFromDB(DefaultListModel<String> userListModel, String searchTerm) {
+        userListModel.clear(); // Clear previous data
+        String query = "SELECT UserID, Username FROM USER WHERE IsBanned = FALSE";
 
+        if (searchTerm != null && !searchTerm.trim().isEmpty()) {
+            query += " AND Username LIKE ?";
+        }
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(query)) {
+
+            if (searchTerm != null && !searchTerm.trim().isEmpty()) {
+                ps.setString(1, "%" + searchTerm + "%");  // Using LIKE with wildcards
+            }
+
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    int userId = rs.getInt("UserID");
+                    String username = rs.getString("Username");
+                    userListModel.addElement(userId + " - " + username);
+                }
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error fetching users from the database: " + e.getMessage(), "Database Error", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+        }
+    }
+
+    public void fetchStatisticsFromDB(JTextArea statsTextArea) {
+        String statsQuery = "SELECT COUNT(*) AS totalUsers FROM USER";
+        String topMusicQuery = "SELECT m.Name, m.PlayCount FROM MUSIC m ORDER BY m.PlayCount DESC LIMIT 10"; // Query for top 10 most listened music
+
+        try (//Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/mfa", "root", "im66709903");
+             Connection conn = DBConnection.getConnection();
+             Statement stmt = conn.createStatement()) {
+
+            // Fetch general statistics
+            try (ResultSet rs = stmt.executeQuery(statsQuery)) {
+                if (rs.next()) {
+                    int totalUsers = rs.getInt("totalUsers");
+                    statsTextArea.setText("Total Users: " + totalUsers + "\n");
+                }
+            }
+
+            // Fetch top 10 most listened music
+            try (ResultSet rs = stmt.executeQuery(topMusicQuery)) {
+                statsTextArea.append("\nTop 10 Most Listened Music:\n");
+                while (rs.next()) {
+                    String musicName = rs.getString("Name");
+                    int playCount = rs.getInt("PlayCount");
+                    statsTextArea.append(musicName + " - Play Count: " + playCount + "\n");
+                }
+            }
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error fetching statistics from the database: " + e.getMessage(), "Database Error", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+        }
+    }
 
 }
 
