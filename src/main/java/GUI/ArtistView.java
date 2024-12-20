@@ -137,7 +137,7 @@ import java.sql.SQLException;
             return panel;
         }
         private void createSongTable() {
-            String[] columnNames = { "Title", "Album", "Category", "Play Count", "Release Date", "Total Likes", "Total Dislikes"};
+            String[] columnNames = { "Music ID", "Title", "Album", "Category", "Play Count", "Release Date", "Total Likes", "Total Dislikes"};
             songTableModel = new DefaultTableModel(columnNames, 0) {
                 @Override
                 public boolean isCellEditable(int row, int column) {
@@ -384,6 +384,7 @@ import java.sql.SQLException;
                     int dislikes = artist.getDislikeByMusicID(musicId);
 
                     songTableModel.addRow(new Object[]{
+                            songs.getInt("MusicID"),
                             songs.getString("Name"),
                             albumName,
                             songs.getString("CategoryName"),

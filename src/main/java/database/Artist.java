@@ -75,6 +75,8 @@ public class Artist  {
         updateTrackCountStatement.setInt(1, albumId);
         updateTrackCountStatement.executeUpdate();
 
+
+
         //needs to update track count in album
     }
 
