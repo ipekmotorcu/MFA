@@ -15,8 +15,8 @@ import database.Listener; // Import database.Listener class
 public class ListenerView extends JFrame {
     private CardLayout cardLayout;
     private JPanel mainPanel;
-    private JTextField searchBar;
-    private JLabel songNameLabel, songLikesLabel, songDislikesLabel;
+    public JTextField searchBar;
+    public JLabel songNameLabel, songLikesLabel, songDislikesLabel;
     private JList<String> likedSongsList, playlistList;
     private DefaultListModel<String> playlistModel, songsInPlaylistModel;
     private int songId; // To keep track of the current song being viewed
@@ -295,7 +295,7 @@ public class ListenerView extends JFrame {
         return detailPanel;
     }
 
-    private void searchSong() {
+    public void searchSong() {
         String searchTerm = searchBar.getText();
         if (searchTerm.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Enter a song name.", "Warning", JOptionPane.WARNING_MESSAGE);
